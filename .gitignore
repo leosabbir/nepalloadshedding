@@ -1,4 +1,3 @@
 /.project
-/bin
-/cepengine
-/filterengine
+/war/nepalloadshedding
+/gwt-unitCache

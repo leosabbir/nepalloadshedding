@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.hogwart.loadshedding.client.view.components">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:HTMLPanel>
+		<g:HorizontalPanel>
+			<g:Button styleName="{style.important}" ui:field="group1Btn" text="Group 1"/>
+			<g:Button styleName="{style.important}" ui:field="group2Btn" text="Group 2"/>
+			<g:Button styleName="{style.important}" ui:field="group3Btn" text="Group 3"/>
+			<g:Button styleName="{style.important}" ui:field="group4Btn" text="Group 4"/>
+			<g:Button styleName="{style.important}" ui:field="group5Btn" text="Group 5"/>
+			<g:Button styleName="{style.important}" ui:field="group6Btn" text="Group 6"/>
+			<g:Button styleName="{style.important}" ui:field="group7Btn" text="Group 7"/>
+		</g:HorizontalPanel>
+		<c:ScheduleComponent day = "SUN" ui:field="sunSchedule"></c:ScheduleComponent>
+		<c:ScheduleComponent day = "MON" ui:field="monSchedule"></c:ScheduleComponent>
+		<c:ScheduleComponent day = "TUE" ui:field="tueSchedule"></c:ScheduleComponent>
+		<c:ScheduleComponent day = "WED" ui:field="wedSchedule"></c:ScheduleComponent>
+		<c:ScheduleComponent day = "THU" ui:field="thuSchedule"></c:ScheduleComponent>
+		<c:ScheduleComponent day = "FRI" ui:field="friSchedule"></c:ScheduleComponent>
+		<c:ScheduleComponent day = "SAT" ui:field="satSchedule"></c:ScheduleComponent>
+	</g:HTMLPanel>
+</ui:UiBinder> 

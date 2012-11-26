@@ -1,0 +1,177 @@
+.clear {
+	clear: both;
+}
+
+.headerMain {
+	width: 1024px;
+	margin: 0px;
+	padding: 13px 0px 0px 0px;
+}
+
+.menuMain {
+	width: 1024px;
+	margin: 0px 0px 0px 0px;
+	position: relative;
+	font-family: 'proximaNova', Arial, Helvetica, Lucida Grande;
+	text-shadow: 0px 1px 0px #39510b;
+	padding: 0px;
+	list-style: none;
+}
+
+.mainBody {
+	padding: 5px 5px;
+	width: 1024px;
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+}
+
+.mainContent {
+	background-color: #c4c4c4;
+}
+
+.subTabContainer {
+	width: 100%;
+	margin: 0px;
+	float: left;
+}
+
+.mainContentPanel {
+	margin: 0px;
+}
+
+/* @sprite .mainContentHeader { */
+.mainContentHeader {
+/* 	gwt-image: "headerBg"; */
+	border-radius: 5px 5px 0px 0px;
+	-moz-border-radius: 5px 5px 0px 0px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	color: #fff;
+	height: 32px;
+	line-height: 32px;
+	padding-left: 10px;
+	text-shadow: 0.1em 0.1em 0.1em #000;
+}
+
+.headerLabel {
+	font-size: 20px;
+	padding: 10px 0px;
+	color: #4a4a4a;
+}
+
+.adminHeaderLabel {
+	font-size: 20px;
+	padding: 10px 0px;
+	color: #4a4a4a;
+	width:50%;
+	float:left;
+}
+
+.errorlabel {
+	color: red;
+	font-style: italic;
+	margin-bottom: 5px;	
+}
+
+.logoutBtn{
+	cursor: pointer;
+	float: right;
+	border-radius: 5px 5px 5px 5px;
+	border: 1px solid #3a5012;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	margin-top: 5px;
+	padding: 3px;
+	line-height: 16px;
+}
+
+.logoutLabel{
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+	
+}
+
+.logoutIcon{
+	vertical-align: top;
+}
+
+.msToggleBar {
+	margin: 0px;
+	padding: 3px 0px 3px 10px;
+	background: #61841f;
+}
+
+.msResetButton {
+	outline: none;
+	display: inline-block;
+	color: #ffffff;
+	font-family: arial;
+	font-size: 9px;
+	padding: 2px;
+	margin: 0px 0px 0px 0px;
+	text-decoration: none;
+	text-shadow: 1px 1px 0px #425c0e;
+	-moz-box-shadow: inset 0px 1px 0px 0px #b0c97f;
+	-webkit-box-shadow: inset 0px 1px 0px 0px #b0c97f;
+	box-shadow: inset 0px 1px 0px 0px #b0c97f;
+	background-color: #829c4e;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #425c0e;
+	display: inline-block;
+}
+
+.msDatePicker {
+	width: 60px;
+	padding: 2px 4px;
+	border: 1px solid #ccc;
+	border-top: 1px solid #999;
+	font-size: 9px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.msLabel {
+	font-size: 11px;
+	color: #96b659;
+	display: inline-block;
+}
+
+.msDatePickerHolder {
+	width: auto;
+	margin: 0px;
+	padding: 0px;
+	float: right;
+}
+
+/* @sprite .closedialog { */
+.closedialog {
+	float: right;
+/* 	gwt-image: "closeIcon"; */
+	cursor: pointer;
+}
+
+.dialogTitle {
+
+}
+
+.buttonPanel {
+/* 	height: 30px; */
+/* 	position: relative; */
+	text-align: right;
+	margin-top: 20px;
+}
+
+.buttonPanel>button {
+/* 	position: absolute; */
+/* 	right: 0; */
+	margin-left: 5px;
+}
+
+.scrollPanel {
+	min-width: 300px;
+	max-width: 950px;
+	padding: 20px;
+}

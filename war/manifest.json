@@ -7,7 +7,7 @@
   		"48" : "icons/qpik48.png",
   		"128" : "icons/qpik128.png" 
   		},
-  "description": "Take a quick-peek into the web",
+  "description": "Check your loadshedding schedule from your browser",
   "browser_action": {
     "default_icon": "icons/qpik128.png",
     "default_popup": "Nepalloadshedding.html"

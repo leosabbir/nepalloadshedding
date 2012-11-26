@@ -1,0 +1,61 @@
+.gwt-Button {
+	}
+
+	.gwt-Button, .gwt-SubmitButton {
+		display: inline-block;
+		background-color: #829C4E;
+		background-image: -moz-linear-gradient(#5ba047, #829C4E);
+		background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5ba047), to(#829C4E));
+		background-repeat: repeat-x;
+		box-shadow: 0 1px 0 #FFFFFF;
+		color: #FFFFFF;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		display: inline-block;
+		font-family: arial;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 5px 10px;
+		text-decoration: none;
+		cursor: pointer;
+		border-radius: 4px;
+		overflow: visible;
+		line-height: 18px;
+		border: 1px solid #61841f;
+	}
+
+	.gwt-Button.gwt-Button-important {
+		border: 3px solid #FFFFFF;
+		box-shadow: 0 0 2px #000000, 0 1px 2px #000000;
+	}
+
+	.gwt-Button[type] {
+		text-decoration: none;
+		padding: 5px 10px;
+	}
+
+	.gwt-Button:hover, .gwt-SubmitButton:hover {
+		background-color: #61841f;
+		background-image: -moz-linear-gradient(#61841f, #5ba047);
+		text-decoration: none;
+	}
+
+	.gwt-Button:active {
+		color: #FFFFFF;
+	}
+
+	.gwt-Button[disabled],
+	.gwt-Button[disabled]:hover,
+	.gwt-SubmitButton[disabled],
+	.gwt-SubmitButton[disabled]:hover {
+		cursor: default;
+		color: #eee;
+		background-color: #c0c0c0;
+		background-image: -moz-linear-gradient(#e0e0e0, #c0c0c0);
+		border: 1px solid #c0c0c0;
+	}
+
+	.gwt-Button span {
+		padding-left: 5px;
+		line-height: 1.5;
+		vertical-align: top;
+	}

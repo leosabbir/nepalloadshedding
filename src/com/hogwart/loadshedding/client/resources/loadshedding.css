@@ -2,6 +2,51 @@
 	clear: both;
 }
 
+/*main schdule container*/
+.schedulesContainer {
+	width: 350px;
+	border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	background-color: #FF260A;
+	padding: 5px;
+}
+
+/*schdule component container*/
+.scheduleContainer {
+	width: 94%;
+	background-color: #AD2D08;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	margin: 5px 0;
+	padding: 12px 10px;
+	line-height: 20px;
+	font-weight: bold;
+	font-size: 15px;
+/* 	height: 50px; */
+}
+
+.timeContainer {
+/* 	display: inline; */
+/* 	position: absolute; */
+	width: 115px;
+	margin: -20px 0px 0px 200px;
+}
+
+.dayField {
+	width: 30px;
+}
+
+.glowStatus {
+	border-left: 1px #000 solid;
+	border-right: 1px #000 solid;
+	padding-left: 20px;
+	padding-right: 17px;
+	margin-left: 20px;
+	
+}
+
 .headerMain {
 	width: 1024px;
 	margin: 0px;

@@ -16,6 +16,14 @@ public class LoadsheddingDataSource {
 		scheduleLength.setFromTime(getTime(6, 0, 0));
 		scheduleLength.setToTime(getTime(9, 0, 0));
 		singleDaySchedule.add(scheduleLength);
+		scheduleLength = new ScheduleLength();
+		scheduleLength.setFromTime(getTime(6, 0, 0));
+		scheduleLength.setToTime(getTime(9, 0, 0));
+		singleDaySchedule.add(scheduleLength);
+		scheduleLength = new ScheduleLength();
+		scheduleLength.setFromTime(getTime(6, 0, 0));
+		scheduleLength.setToTime(getTime(9, 0, 0));
+		singleDaySchedule.add(scheduleLength);
 		schedules.add(singleDaySchedule);
 		
 		singleDaySchedule = new ArrayList<ScheduleLength>();

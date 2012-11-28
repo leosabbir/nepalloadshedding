@@ -11,10 +11,10 @@
 	</ui:style>
 	
 	<g:AbsolutePanel styleName="{res.loadsheddingCss.scheduleContainer}">
-		<g:InlineLabel ui:field="dayField" styleName="{res.loadsheddingCss.dayField}">SUN</g:InlineLabel>
-		<g:InlineLabel ui:field="remainingTimeField" styleName="{res.loadsheddingCss.glowStatus}">Its lighting</g:InlineLabel>
+		<g:Label ui:field="dayField" styleName="{res.loadsheddingCss.dayField}">SUN</g:Label>
 		<g:FlowPanel ui:field="timeField" styleName="{res.loadsheddingCss.timeContainer}">
 		</g:FlowPanel>
+		<g:Label ui:field="remainingTimeField" styleName="{res.loadsheddingCss.glowStatus}">Its lighting</g:Label>
 		
 		
 	</g:AbsolutePanel>

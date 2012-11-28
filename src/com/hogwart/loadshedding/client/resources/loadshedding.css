@@ -4,7 +4,7 @@
 
 /*main schdule container*/
 .schedulesContainer {
-	width: 350px;
+	width: 375px;
 	border-radius: 3px 3px 3px 3px;
 	-moz-border-radius: 3px 3px 3px 3px;
 	-webkit-border-radius: 3px 3px 3px 3px;
@@ -31,19 +31,23 @@
 /* 	display: inline; */
 /* 	position: absolute; */
 	width: 115px;
-	margin: -20px 0px 0px 200px;
+	margin: 0px 0px 0px 30px;
+	float: left;
+	border-left: 1px #000 solid;
+	border-right: 1px #000 solid;
+	padding: 0 20px;
 }
 
 .dayField {
 	width: 30px;
+	float: left;
 }
 
 .glowStatus {
-	border-left: 1px #000 solid;
-	border-right: 1px #000 solid;
 	padding-left: 20px;
 	padding-right: 17px;
 	margin-left: 20px;
+	float: left;
 	
 }
 

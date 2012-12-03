@@ -1,6 +1,6 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:l="urn:import:com.hogwart.loadshedding.client.ui">
 	
 	<ui:with field="res" type="com.hogwart.loadshedding.client.resources.LoadsheddingResources" />
 	
@@ -10,11 +10,12 @@
 		}
 	</ui:style>
 	
-	<g:AbsolutePanel styleName="{res.loadsheddingCss.scheduleContainer}">
+	<g:AbsolutePanel styleName="scheduleContainer">
 		<g:Label ui:field="dayField" styleName="{res.loadsheddingCss.dayField}">SUN</g:Label>
 		<g:FlowPanel ui:field="timeField" styleName="{res.loadsheddingCss.timeContainer}">
 		</g:FlowPanel>
-		<g:Label ui:field="remainingTimeField" styleName="{res.loadsheddingCss.glowStatus}">Its lighting</g:Label>
+<!-- 		<g:Label ui:field="remainingTimeField" styleName="{res.loadsheddingCss.glowStatus}">Its lighting</g:Label> -->
+		<g:FlowPanel ui:field="indicatorContainer"></g:FlowPanel>
 		
 		
 	</g:AbsolutePanel>

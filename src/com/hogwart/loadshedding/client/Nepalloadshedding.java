@@ -3,9 +3,14 @@ package com.hogwart.loadshedding.client;
 import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.hogwart.loadshedding.client.ds.LoadsheddingDataSource;
-import com.hogwart.loadshedding.client.model.ScheduleLength;
+import com.hogwart.loadshedding.client.event.GroupChangeEvent;
+import com.hogwart.loadshedding.client.model.ScheduleFromTo;
+import com.hogwart.loadshedding.client.presenter.LoadsheddingPresenter;
 import com.hogwart.loadshedding.client.resources.LoadsheddingResources;
 import com.hogwart.loadshedding.client.view.ScheduleView;
 
@@ -19,18 +24,19 @@ public class Nepalloadshedding implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		
+		EventBus eventBus = new SimpleEventBus();
 		LoadsheddingResources.INSTANCE.loadsheddingCss().ensureInjected();
 		LoadsheddingResources.INSTANCE.loadsheddingButtonCss().ensureInjected();
 		LoadsheddingResources.INSTANCE.globalCss().ensureInjected();
 		
 		final ScheduleView view = new ScheduleView();
+		LoadsheddingPresenter presenter = new LoadsheddingPresenter(view);
 		
-		List<List<ScheduleLength>> schedules = LoadsheddingDataSource.getMockedData();
-		view.setSchedules(schedules);
-		// Add the nameField and sendButton to the RootPanel
-		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("gwt").add(view);
+		eventBus.addHandler(GroupChangeEvent.TYPE, presenter);
+		
+		presenter.setData();
+		
+		RootPanel.get("gwt").add(presenter.getView());
 
-		// Focus the cursor on the name field when the app loads
 	}
 }

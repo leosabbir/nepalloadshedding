@@ -10,15 +10,15 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-		<g:HorizontalPanel>
-			<g:Button styleName="{style.important}" ui:field="group1Btn" text="Group 1"/>
-			<g:Button styleName="{style.important}" ui:field="group2Btn" text="Group 2"/>
-			<g:Button styleName="{style.important}" ui:field="group3Btn" text="Group 3"/>
-			<g:Button styleName="{style.important}" ui:field="group4Btn" text="Group 4"/>
-			<g:Button styleName="{style.important}" ui:field="group5Btn" text="Group 5"/>
-			<g:Button styleName="{style.important}" ui:field="group6Btn" text="Group 6"/>
-			<g:Button styleName="{style.important}" ui:field="group7Btn" text="Group 7"/>
-		</g:HorizontalPanel>
+		<g:FlowPanel>
+			<g:Button ui:field="group1Btn" text="Group 1"/>
+			<g:Button ui:field="group2Btn" text="Group 2"/>
+			<g:Button ui:field="group3Btn" text="Group 3"/>
+			<g:Button ui:field="group4Btn" text="Group 4"/>
+			<g:Button ui:field="group5Btn" text="Group 5"/>
+			<g:Button ui:field="group6Btn" text="Group 6"/>
+			<g:Button ui:field="group7Btn" text="Group 7"/>
+		</g:FlowPanel>
 		<g:FlowPanel styleName="{res.loadsheddingCss.schedulesContainer}">
 			<c:ScheduleComponent day = "SUN" ui:field="sunSchedule"></c:ScheduleComponent>
 			<c:ScheduleComponent day = "MON" ui:field="monSchedule"></c:ScheduleComponent>

@@ -4,7 +4,11 @@ public class Time {
 	
 	private int hour;
 	private int minute;
-	private int AMPM;
+	
+	public Time(int hour, int minute) {
+		this.hour = hour;
+		this.minute = minute;
+	}
 	
 	public int getHour() {
 		return hour;
@@ -21,12 +25,29 @@ public class Time {
 	public void setMinute(int minute) {
 		this.minute = minute;
 	}
-	
-	public int getAMPM() {
-		return AMPM;
+
+	public boolean isSmallerThan(int hour, int minute) {
+		if( this.hour < hour ) {
+			return true;
+		} else if( this.hour > hour) {
+			return false;
+		} else {
+			return this.minute < minute;
+		}
+	}
+
+	public boolean isLargerThan(int hour, int minute) {
+		if ( this.hour > hour ) {
+			return true;
+		} else if ( this.hour < hour ) {
+			return false;
+		} else {
+			return this.minute > minute;
+		}
 	}
 	
-	public void setAMPM(int aMPM) {
-		AMPM = aMPM;
+	public boolean isEqual( int hour, int minute ) {
+		return this.hour == hour && this.minute == minute;
 	}
+	
 }

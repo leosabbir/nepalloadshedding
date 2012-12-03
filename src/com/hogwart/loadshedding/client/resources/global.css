@@ -1,0 +1,82 @@
+body, table td, select, button {
+  font-family: Arial Unicode MS, Arial, sans-serif;
+  font-size: small;
+}
+
+pre {
+  font-family: "courier new", courier;
+  font-size: small;
+}
+
+body {
+  background-color: #E6E6E6;
+  color: #C3CA00;
+}
+
+.loadshedding-bulb {
+	font-size: 13px;
+	line-height: 12px;
+	color: #B0160A;
+	border: none;
+	border-radius: 3px;
+	margin-left: 40px;
+/* 	cursor: pointer; */
+	background-color: inherit;
+	vertical-align: top;
+}
+
+.scheduleContainer {
+	width: 96%;
+	background-color: #4AA3B7;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	margin: 5px 0;
+	padding: 12px 10px;
+	line-height: 20px;
+	font-weight: bold;
+	font-size: 15px;
+/* 	height: 50px; */
+}
+
+.scheduleContainer-selected {
+	background-color: #2C7386;
+}
+
+@sprite .loadshedding-bulb-on > div.icon {
+	gwt-image: "bulbOn";
+	margin: 8px 0px;
+}
+
+@sprite .loadshedding-bulb-off > div.icon {
+	gwt-image: "bulbOff";
+	margin: 8px 0px;
+}
+
+.loadshedding-bulb-on > div.text {
+	margin-top: 5px;
+}
+
+.gwt-Button {
+		display: inline-block;
+		background-color: #2858A7;
+		background-image: -moz-linear-gradient(#1D3767, #2858A7);
+		background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1D3767), to(#2858A7));
+		background-repeat: repeat-x;
+		box-shadow: 0 1px 0 #FFFFFF;
+		color: #FFFFFF;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		display: inline-block;
+		font-family: arial;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 5px 10px;
+		text-decoration: none;
+		cursor: pointer;
+		border-radius: 4px;
+		overflow: visible;
+		line-height: 18px;
+		border: 1px solid #057ED0;
+		margin-bottom: 5px;
+		margin-left: 5px;
+	}

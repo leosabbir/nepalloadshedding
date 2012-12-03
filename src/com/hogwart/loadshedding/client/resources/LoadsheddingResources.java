@@ -31,12 +31,11 @@ public interface LoadsheddingResources extends ClientBundle {
 	@Source("global.css")
 	CssResource globalCss();
 	
-//	@Source("images/formTitleBg.png")
-//	@ImageOptions(repeatStyle = RepeatStyle.Horizontal)
-//	ImageResource headerBg();
-//	
-//	@Source("images/edit.png")
-//	ImageResource iconEdit();
+	@Source("bulb_32.png")
+	ImageResource bulbOff();
+	
+	@Source("bulb_off_32.png")
+	ImageResource bulbOn();
 //	
 //	@Source("images/delete.png")
 //	ImageResource iconDelete();

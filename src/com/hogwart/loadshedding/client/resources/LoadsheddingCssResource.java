@@ -8,7 +8,7 @@ public interface LoadsheddingCssResource extends CssResource {
 	
 	String schedulesContainer();
 	
-	String scheduleContainer();
+	//String scheduleContainer();
 	
 	String timeContainer();
 	

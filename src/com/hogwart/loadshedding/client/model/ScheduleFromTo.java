@@ -2,6 +2,8 @@ package com.hogwart.loadshedding.client.model;
 
 public class ScheduleFromTo {
 	
+	public static String space = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	
 	public ScheduleFromTo( Time fromTime, Time toTime) {
 		this.fromTime = fromTime;
 		this.toTime = toTime;
@@ -26,13 +28,9 @@ public class ScheduleFromTo {
 		this.toTime = toTime;
 	}
 	
+	@Override
 	public String toString() {
-		String str = "";
-		
-		str += fromTime.getHour() + " : " + fromTime.getMinute() + " - " +
-				toTime.getHour() + " : " + toTime.getMinute();
-		
-		return str;
+		return fromTime.toString() + space + "to" + space + toTime.toString();
 	}
 
 	public boolean includes(int hour, int minute) {

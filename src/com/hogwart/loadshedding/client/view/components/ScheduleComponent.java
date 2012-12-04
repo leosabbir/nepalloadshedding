@@ -7,6 +7,9 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.hogwart.loadshedding.client.model.LoadsheddingStatus;
@@ -42,14 +45,18 @@ public class ScheduleComponent extends Composite {
 	}
 	
 	public void setScheduleTimes(List<ScheduleFromTo> scheduleTimes) {
+		this.timeField.clear();
 		for (ScheduleFromTo time : scheduleTimes) {
-			Label timeLbl = new Label(time.toString());
+			HTML timeLbl = new HTML(time.toString());
+			//InlineLabel lbl = new InlineLabel();
+			//lb
 			this.timeField.add(timeLbl);
 		}
 	}
 
 	public void setStatus(LoadsheddingStatus status) {
-		indicatorContainer.add(new LoadsheddingIndicator(status.getHourRemaining() + " : " + status.getMinuteRemaining(), status.getOnOff() == 0 ? "off" : "on"));
+		indicatorContainer.clear();
+		indicatorContainer.add(new LoadsheddingIndicator(status.getTime(), status.getOnOff() == 0 ? "off" : "on"));
 	}
 	
 	

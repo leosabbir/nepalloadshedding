@@ -1,5 +1,7 @@
 package com.hogwart.loadshedding.client.model;
 
+import com.hogwart.loadshedding.client.util.NumberFormatUtil;
+
 public class Time {
 	
 	private int hour;
@@ -48,6 +50,11 @@ public class Time {
 	
 	public boolean isEqual( int hour, int minute ) {
 		return this.hour == hour && this.minute == minute;
+	}
+	
+	@Override
+	public String toString () {
+		return NumberFormatUtil.formatNumber(this.hour) + " : " + NumberFormatUtil.formatNumber(this.minute);
 	}
 	
 }

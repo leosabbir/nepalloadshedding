@@ -19,7 +19,7 @@ body {
 	color: #B0160A;
 	border: none;
 	border-radius: 3px;
-	margin-left: 40px;
+	margin-left: 26px;
 /* 	cursor: pointer; */
 	background-color: inherit;
 	vertical-align: top;
@@ -45,12 +45,12 @@ body {
 
 @sprite .loadshedding-bulb-on > div.icon {
 	gwt-image: "bulbOn";
-	margin: 8px 0px;
+	margin: 8px 4px;
 }
 
 @sprite .loadshedding-bulb-off > div.icon {
 	gwt-image: "bulbOff";
-	margin: 8px 0px;
+	margin: 8px 4px;
 }
 
 .loadshedding-bulb-on > div.text {
@@ -79,4 +79,8 @@ body {
 		border: 1px solid #057ED0;
 		margin-bottom: 5px;
 		margin-left: 5px;
+	}
+	
+.gwt-Button-selected {
+		background-color: #0C794A;
 	}

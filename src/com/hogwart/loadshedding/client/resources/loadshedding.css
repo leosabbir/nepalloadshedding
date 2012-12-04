@@ -13,30 +13,11 @@
 	color: #1E5B11;
 }
 
-/*schdule component container*/
-.scheduleContainer {
-	width: 96%;
-	background-color: #4AA3B7;
-	border-radius: 5px 5px 5px 5px;
-	-moz-border-radius: 5px 5px 5px 5px;
-	-webkit-border-radius: 5px 5px 5px 5px;
-	margin: 5px 0;
-	padding: 12px 10px;
-	line-height: 20px;
-	font-weight: bold;
-	font-size: 15px;
-/* 	height: 50px; */
-}
-
-@external
-.scheduleContainer-selected {
-	background-color: #2C7386;
-}
 .timeContainer {
 /* 	display: inline; */
 /* 	position: absolute; */
-	width: 125px;
-	margin: 0px 0px 0px 40px;
+	width: 180px;
+	margin: 0px 0px 0px 20px;
 	float: left;
 	border-left: 1px #7D811C solid;
 	border-right: 1px #7D811C solid;
@@ -45,10 +26,10 @@
 }
 
 .dayField {
-	width: 35px;
+	width: 60px;
 	float: left;
 	margin-top: 12px;
-	margin-left: 35px
+	margin-left: 13px
 }
 
 .glowStatus {

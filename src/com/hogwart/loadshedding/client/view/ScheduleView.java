@@ -11,6 +11,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.LoadsheddingStatus;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
@@ -28,6 +29,8 @@ public class ScheduleView extends Composite {
 	public ScheduleView() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
+	
+	private int currentSelectedGroup;
 
 	@UiField
 	Button group1Btn;
@@ -74,12 +77,54 @@ public class ScheduleView extends Composite {
 
 	@UiHandler({"group1Btn", "group2Btn", "group3Btn", "group4Btn", "group5Btn", "group6Btn", "group7Btn"})
 	void onClick(ClickEvent e) {
-		fireEvent(new GroupChangeEvent(0));
-		//Window.alert("Hello!" + ((Button)e.getSource()).getText());
+		int group = Utils.getGroupNumber(((Button)e.getSource()).getText());
+		if ( this.currentSelectedGroup != group ) {
+			this.selectButton(group);
+			ClientFactory.getEventBus().fireEvent(new GroupChangeEvent(group));
+		}
+	}
+	
+	private void clearSelection() {
+		this.group1Btn.removeStyleDependentName("selected");
+		this.group2Btn.removeStyleDependentName("selected");
+		this.group3Btn.removeStyleDependentName("selected");
+		this.group4Btn.removeStyleDependentName("selected");
+		this.group5Btn.removeStyleDependentName("selected");
+		this.group6Btn.removeStyleDependentName("selected");
+		this.group7Btn.removeStyleDependentName("selected");
+	}
+	
+	private void selectButton(int group) {
+		clearSelection();
+		switch (group) {
+		case 1:
+			this.group1Btn.addStyleDependentName("selected");
+			break;
+		case 2:
+			this.group2Btn.addStyleDependentName("selected");
+			break;
+		case 3:
+			this.group3Btn.addStyleDependentName("selected");
+			break;
+		case 4:
+			this.group4Btn.addStyleDependentName("selected");
+			break;
+		case 5:
+			this.group5Btn.addStyleDependentName("selected");
+			break;
+		case 6:
+			this.group6Btn.addStyleDependentName("selected");
+			break;
+
+		default:
+			this.group7Btn.addStyleDependentName("selected");
+			break;
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
 	public void setSchedules(List<List<ScheduleFromTo>> schedules, int group) {
+		this.currentSelectedGroup = group;
 		Date date = new Date();
 		int day = date.getDay();
 		int hour = date.getHours();
@@ -105,6 +150,7 @@ public class ScheduleView extends Composite {
 				this.setScheduleAndStatus(this.satSchedule, schedules.get((sunScheduleIndex + i) % 7), status, i == day);
 			}
 		}
+		this.selectButton(group);
 	}
 	
 	private void setScheduleAndStatus(ScheduleComponent scheduleComponent, List<ScheduleFromTo> schedules, LoadsheddingStatus status, boolean today) {

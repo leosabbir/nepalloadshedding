@@ -7,6 +7,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.ds.LoadsheddingDataSource;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
@@ -24,13 +25,13 @@ public class Nepalloadshedding implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		
-		EventBus eventBus = new SimpleEventBus();
+		EventBus eventBus = ClientFactory.getEventBus();
 		LoadsheddingResources.INSTANCE.loadsheddingCss().ensureInjected();
 		LoadsheddingResources.INSTANCE.loadsheddingButtonCss().ensureInjected();
 		LoadsheddingResources.INSTANCE.globalCss().ensureInjected();
 		
 		final ScheduleView view = new ScheduleView();
-		LoadsheddingPresenter presenter = new LoadsheddingPresenter(view);
+		LoadsheddingPresenter presenter = new LoadsheddingPresenter(view, eventBus);
 		
 		eventBus.addHandler(GroupChangeEvent.TYPE, presenter);
 		

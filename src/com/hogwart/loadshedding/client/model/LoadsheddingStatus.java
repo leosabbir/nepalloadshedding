@@ -1,5 +1,7 @@
 package com.hogwart.loadshedding.client.model;
 
+import com.hogwart.loadshedding.client.util.NumberFormatUtil;
+
 public class LoadsheddingStatus {
 
 	private int onOff;
@@ -30,5 +32,8 @@ public class LoadsheddingStatus {
 		this.minuteRemaining = minuteRemaining;
 	}
 	
+	public String getTime () {
+		return NumberFormatUtil.formatNumber(this.hourRemaining) + " : " + NumberFormatUtil.formatNumber(this.minuteRemaining);
+	}
 	
 }

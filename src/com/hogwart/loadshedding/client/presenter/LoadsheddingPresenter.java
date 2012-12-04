@@ -2,6 +2,7 @@ package com.hogwart.loadshedding.client.presenter;
 
 import java.util.List;
 
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.hogwart.loadshedding.client.ds.LoadsheddingDataSource;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
@@ -12,14 +13,16 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler {
 
 	ScheduleView scheduleView;
 	List<List<ScheduleFromTo>> schedules;
+	EventBus eventBus;
 	
 	
-	public LoadsheddingPresenter(ScheduleView scheduleView) {
+	public LoadsheddingPresenter(ScheduleView scheduleView, EventBus eventBus) {
 		this.scheduleView = scheduleView;
+		this.eventBus = eventBus;
 	}
 	
 	public void setData() {
-		List<List<ScheduleFromTo>> schedules = LoadsheddingDataSource.getMockedData();
+		schedules = LoadsheddingDataSource.getSchedules();
 		this.scheduleView.setSchedules(schedules, 5);
 	}
 

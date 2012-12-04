@@ -8,10 +8,17 @@ import com.hogwart.loadshedding.client.model.Time;
 
 public class LoadsheddingDataSource {
 
-	private static List<List<ScheduleFromTo>> schedules = new ArrayList<List<ScheduleFromTo>>();
+	private static List<List<ScheduleFromTo>> schedules;
+	
+	public static List<List<ScheduleFromTo>> getSchedules () {
+		if ( schedules == null ) {
+			getMockedData();
+		}
+		return schedules;
+	}
 
-	public static List<List<ScheduleFromTo>> getMockedData() {
-
+	public static void getMockedData() {
+		schedules = new ArrayList<List<ScheduleFromTo>>();
 		// Sunday
 		List<ScheduleFromTo> singleDaySchedule = new ArrayList<ScheduleFromTo>();
 		ScheduleFromTo scheduleLength = new ScheduleFromTo(new Time(5, 0),
@@ -71,8 +78,6 @@ public class LoadsheddingDataSource {
 		scheduleLength = new ScheduleFromTo(new Time(15, 0), new Time(19, 00));
 		singleDaySchedule.add(scheduleLength);
 		schedules.add(singleDaySchedule);
-
-		return schedules;
 	}
 
 	@Deprecated

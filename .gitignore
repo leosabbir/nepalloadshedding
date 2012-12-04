@@ -10,3 +10,4 @@
 /www-test/*
 /www-test/**/*
 /test-classes
+/war/WEB-INF/deploy

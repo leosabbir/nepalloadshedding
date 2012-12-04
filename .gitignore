@@ -1,4 +1,12 @@
 /.project
+/war/nepalloadshedding
+/war/nepalloadshedding/**/*
 /war/nepalloadshedding/*
+/war/nepalloadshedding/nepalloadshedding.nocache.js
 /gwt-unitCache
-/war/WEB-INF/classes/*
+/war/WEB-INF/classes
+/war/WEB-INF/classes/**/*
+/www-test
+/www-test/*
+/www-test/**/*
+/test-classes

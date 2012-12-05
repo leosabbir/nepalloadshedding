@@ -4,15 +4,17 @@ import java.util.List;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Widget;
-import com.hogwart.loadshedding.client.ds.LoadsheddingDataSource;
+import com.hogwart.loadshedding.client.ds.JSONExtractor;
+import com.hogwart.loadshedding.client.ds.JSONMockedSchedule;
+import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
+import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 import com.hogwart.loadshedding.client.view.ScheduleView;
 
 public class LoadsheddingPresenter implements GroupChangeEvent.Handler {
 
 	ScheduleView scheduleView;
-	List<List<ScheduleFromTo>> schedules;
 	EventBus eventBus;
 	
 	
@@ -22,8 +24,14 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler {
 	}
 	
 	public void setData() {
-		schedules = LoadsheddingDataSource.getSchedules();
-		this.scheduleView.setSchedules(schedules, 5);
+		int group = 0;
+		try {
+			group = Integer.parseInt( LocalStorageUtil.getCurrentSelectedGroup() );
+		} catch (Exception e) {
+			
+			group = 1;
+		}
+		this.scheduleView.setSchedules(LoadsheddingDataConstructor.getSchedules(JSONExtractor.extractJSON()), group);
 	}
 
 	public Widget getView() {
@@ -32,7 +40,7 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler {
 
 	@Override
 	public void onGroupChanged(GroupChangeEvent event) {
-		this.scheduleView.setSchedules(schedules, event.getGroup());
+		this.scheduleView.setSchedules(LoadsheddingDataConstructor.getSchedules(), event.getGroup());
 	}
 	
 }

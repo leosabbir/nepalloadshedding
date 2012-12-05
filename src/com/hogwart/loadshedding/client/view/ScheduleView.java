@@ -15,6 +15,7 @@ import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.LoadsheddingStatus;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
+import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 import com.hogwart.loadshedding.client.util.Utils;
 import com.hogwart.loadshedding.client.view.components.ScheduleComponent;
 
@@ -80,6 +81,7 @@ public class ScheduleView extends Composite {
 		int group = Utils.getGroupNumber(((Button)e.getSource()).getText());
 		if ( this.currentSelectedGroup != group ) {
 			this.selectButton(group);
+			LocalStorageUtil.storeCurrentSelectedGroup(group+"");
 			ClientFactory.getEventBus().fireEvent(new GroupChangeEvent(group));
 		}
 	}

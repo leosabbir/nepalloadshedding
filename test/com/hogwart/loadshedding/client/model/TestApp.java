@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.hogwart.loadshedding.client.ds.LoadsheddingDataSource;
+import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
 import com.hogwart.loadshedding.client.util.Utils;
 
 public class TestApp {
@@ -77,7 +77,7 @@ public class TestApp {
 	@Test
 	public void testApp() {
 		List<List<ScheduleFromTo>> schedules = getMockedData();
-		LoadsheddingDataSource.setData(schedules);
+		LoadsheddingDataConstructor.setData(schedules);
 		
 		int day = 0;
 		int hour = 21;

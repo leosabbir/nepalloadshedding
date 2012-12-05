@@ -8,7 +8,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.hogwart.loadshedding.client.bind.ClientFactory;
-import com.hogwart.loadshedding.client.ds.LoadsheddingDataSource;
+import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
 import com.hogwart.loadshedding.client.presenter.LoadsheddingPresenter;

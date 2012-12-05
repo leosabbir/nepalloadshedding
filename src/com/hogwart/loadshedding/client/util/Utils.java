@@ -2,7 +2,7 @@ package com.hogwart.loadshedding.client.util;
 
 import java.util.List;
 
-import com.hogwart.loadshedding.client.ds.LoadsheddingDataSource;
+import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
 import com.hogwart.loadshedding.client.model.LoadsheddingStatus;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
 import com.hogwart.loadshedding.client.model.Time;
@@ -34,7 +34,7 @@ public class Utils {
 		}
 		/*schedule null means there is no next loadshedding schedule today*/
 		if (schedule == null) {
-			Time time = LoadsheddingDataSource.getRemainingTime(day, sunScheduleIndex);
+			Time time = LoadsheddingDataConstructor.getRemainingTime(day, sunScheduleIndex);
 			Time todayRemaining = getTodayRemainingTime(hour, minute);
 			status.setOnOff(1);
 			status.setHourRemaining(todayRemaining.getHour() + time.getHour());

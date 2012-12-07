@@ -10,6 +10,7 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
+		<g:Label ui:field="testLbl"></g:Label>
 		<g:FlowPanel>
 			<g:Button ui:field="group1Btn" text="Group 1"/>
 			<g:Button ui:field="group2Btn" text="Group 2"/>

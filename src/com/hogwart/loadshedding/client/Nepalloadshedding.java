@@ -9,10 +9,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
+import com.hogwart.loadshedding.client.event.DataReceivedEvent;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
 import com.hogwart.loadshedding.client.presenter.LoadsheddingPresenter;
 import com.hogwart.loadshedding.client.resources.LoadsheddingResources;
+import com.hogwart.loadshedding.client.util.DataExtractorUtil;
 import com.hogwart.loadshedding.client.view.ScheduleView;
 
 /**
@@ -24,7 +26,7 @@ public class Nepalloadshedding implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		
+		DataExtractorUtil.get();
 		EventBus eventBus = ClientFactory.getEventBus();
 		LoadsheddingResources.INSTANCE.loadsheddingCss().ensureInjected();
 		LoadsheddingResources.INSTANCE.loadsheddingButtonCss().ensureInjected();
@@ -34,6 +36,7 @@ public class Nepalloadshedding implements EntryPoint {
 		LoadsheddingPresenter presenter = new LoadsheddingPresenter(view, eventBus);
 		
 		eventBus.addHandler(GroupChangeEvent.TYPE, presenter);
+		eventBus.addHandler(DataReceivedEvent.TYPE, presenter);
 		
 		presenter.setData();
 		

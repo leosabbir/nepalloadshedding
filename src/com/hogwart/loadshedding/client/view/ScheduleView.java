@@ -8,13 +8,16 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.LoadsheddingStatus;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
+import com.hogwart.loadshedding.client.util.DataExtractorUtil;
 import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 import com.hogwart.loadshedding.client.util.Utils;
 import com.hogwart.loadshedding.client.view.components.ScheduleComponent;
@@ -32,6 +35,9 @@ public class ScheduleView extends Composite {
 	}
 	
 	private int currentSelectedGroup;
+	
+	@UiField
+	Label testLbl;
 
 	@UiField
 	Button group1Btn;
@@ -83,6 +89,8 @@ public class ScheduleView extends Composite {
 			this.selectButton(group);
 			LocalStorageUtil.storeCurrentSelectedGroup(group+"");
 			ClientFactory.getEventBus().fireEvent(new GroupChangeEvent(group));
+			
+			DataExtractorUtil.test();
 		}
 	}
 	
@@ -161,5 +169,9 @@ public class ScheduleView extends Composite {
 			scheduleComponent.addStyleDependentName("selected");
 		}
 		scheduleComponent.setScheduleTimes(schedules);
+	}
+	
+	public void setTestLbl(String txt) {
+		this.testLbl.setText(txt);
 	}
 }

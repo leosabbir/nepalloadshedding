@@ -11,7 +11,6 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
@@ -20,6 +19,7 @@ import com.hogwart.loadshedding.client.model.ScheduleFromTo;
 import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 import com.hogwart.loadshedding.client.util.Utils;
 import com.hogwart.loadshedding.client.view.components.ScheduleComponent;
+import com.hogwart.loadshedding.client.view.components.ScheduleStatus;
 
 public class ScheduleView extends Composite {
 
@@ -42,8 +42,8 @@ public class ScheduleView extends Composite {
 	HTMLPanel loadingPanel;
 	
 	@UiField
-	Label infoLbl;
-
+	ScheduleStatus scheduleStatus;
+	
 	@UiField
 	Button group1Btn;
 	
@@ -172,6 +172,10 @@ public class ScheduleView extends Composite {
 		this.loadingPanel.setVisible(!show);
 	}
 	
+	public void showUpdating() {
+		this.scheduleStatus.showUpdating();
+	}
+	
 	private void setScheduleAndStatus(ScheduleComponent scheduleComponent, List<ScheduleFromTo> schedules, LoadsheddingStatus status, boolean today) {
 		if ( today ) {
 			scheduleComponent.setStatus(status);
@@ -181,6 +185,10 @@ public class ScheduleView extends Composite {
 	}
 	
 	public void setTestLbl(String txt) {
-		this.infoLbl.setText("Effective from " + txt);
+		this.scheduleStatus.setEffectiveFrom(txt);
+	}
+	
+	public void setConnectionIndicator(boolean connected) {
+		this.scheduleStatus.setConnectionIndicator(connected);
 	}
 }

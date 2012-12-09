@@ -34,12 +34,12 @@ public interface LoadsheddingResources extends ClientBundle {
 	
 	@Source("bulb_off_32.png")
 	ImageResource bulbOn();
-//	
-//	@Source("images/delete.png")
-//	ImageResource iconDelete();
-//	
-//	@Source("images/delete.png")
-//	ImageResource iconDetails();
+	
+	@Source("greencircle.png")
+	ImageResource connected();
+	
+	@Source("close.png")
+	ImageResource notconnected();
 //	
 //	@Source("images/logoff_red.png")
 //	ImageResource iconLogoff();

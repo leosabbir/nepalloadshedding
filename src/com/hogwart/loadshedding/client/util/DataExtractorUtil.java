@@ -43,11 +43,11 @@ public class DataExtractorUtil {
 
 				@Override
 				public void onError(Request request, Throwable exception) {
-					//ClientFactory.getEventBus().fireEvent(new DataReceivedEvent("", ""));
+					ClientFactory.getEventBus().fireEvent(new DataReceivedEvent("", ""));
 				}
 			});
 		} catch (RequestException e) {
-			//ClientFactory.getEventBus().fireEvent(new DataReceivedEvent("", ""));
+			ClientFactory.getEventBus().fireEvent(new DataReceivedEvent("", ""));
 		}
 	}
 }

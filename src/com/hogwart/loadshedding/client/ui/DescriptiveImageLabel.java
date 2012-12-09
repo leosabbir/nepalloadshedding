@@ -14,6 +14,8 @@ public class DescriptiveImageLabel extends Button {
 	public DescriptiveImageLabel(String text) {
 		setStylePrimaryName(STYLE_PRIMARY_NAME);
 		this.text = text;
+		setEnabled(false);
+		setFocus(false);
 		updateHTML();
 	}
 

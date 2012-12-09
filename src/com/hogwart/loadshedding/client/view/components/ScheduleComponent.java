@@ -50,7 +50,13 @@ public class ScheduleComponent extends Composite {
 
 	public void setStatus(LoadsheddingStatus status) {
 		indicatorContainer.clear();
-		indicatorContainer.add(new LoadsheddingIndicator(status.getTime(), status.getOnOff() == 0 ? "off" : "on"));
+		LoadsheddingIndicator indicator = new LoadsheddingIndicator(status.getTime(), status.getOnOff() == 0 ? "off" : "on");
+		if( status.getOnOff() == 0 ) {
+			indicator.setTitle("Light will come after " + status.getTime());
+		} else {
+			indicator.setTitle("Light will remain untill " + status.getTime());
+		}
+		indicatorContainer.add(indicator);
 	}
 	
 	

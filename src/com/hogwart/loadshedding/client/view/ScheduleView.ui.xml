@@ -14,10 +14,7 @@
 			Update Found<br/>Please Wait....!!!
 		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="schedulePanel" visible = "true">
-			<g:HTMLPanel>
-				<g:Label ui:field="infoLbl" styleName="info"/>
-				
-			</g:HTMLPanel>
+			<c:ScheduleStatus ui:field="scheduleStatus"></c:ScheduleStatus>
 			<g:FlowPanel>
 				<g:Button ui:field="group1Btn" text="Group 1"/>
 				<g:Button ui:field="group2Btn" text="Group 2"/>

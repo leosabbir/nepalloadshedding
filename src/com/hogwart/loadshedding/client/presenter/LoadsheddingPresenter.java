@@ -2,10 +2,12 @@ package com.hogwart.loadshedding.client.presenter;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.Widget;
-import com.hogwart.loadshedding.client.ds.JSONExtractor;
+import com.hogwart.loadshedding.client.bind.ClientFactory;
+import com.hogwart.loadshedding.client.constants.Constants;
 import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
 import com.hogwart.loadshedding.client.event.DataReceivedEvent;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
+import com.hogwart.loadshedding.client.util.DataExtractorUtil;
 import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 import com.hogwart.loadshedding.client.view.ScheduleView;
 
@@ -14,6 +16,7 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler, DataRece
 	ScheduleView scheduleView;
 	EventBus eventBus;
 	
+	int group;
 	
 	public LoadsheddingPresenter(ScheduleView scheduleView, EventBus eventBus) {
 		this.scheduleView = scheduleView;
@@ -21,14 +24,17 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler, DataRece
 	}
 	
 	public void setData() {
-		int group = 0;
+		group = 0;
 		try {
 			group = Integer.parseInt( LocalStorageUtil.getCurrentSelectedGroup() );
 		} catch (Exception e) {
-			
 			group = 1;
 		}
-		this.scheduleView.setSchedules(LoadsheddingDataConstructor.getSchedules(JSONExtractor.extractJSON()), group);
+		try {
+			this.scheduleView.setSchedules(LoadsheddingDataConstructor.getSchedules(ClientFactory.getSchedule()), group);
+		} catch (Exception e) {
+			ClientFactory.Reset();
+		}
 	}
 
 	public Widget getView() {
@@ -42,7 +48,26 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler, DataRece
 
 	@Override
 	public void onDataReceived(DataReceivedEvent event) {
-		this.scheduleView.setTestLbl(event.getData());
+		String type = event.getRequestType();
+		String data = event.getData();
+		
+		if ( type.equals(Constants.VER_TYPE)) {
+			LocalStorageUtil.storeCurrentScheduleVersion(data);
+			this.scheduleView.setTestLbl(data);
+			this.scheduleView.showSchedulePanel(false);
+			DataExtractorUtil.extract(Constants.SCHEDULE_URL, Constants.SCHE_TYPE);
+		} else if ( type.equals(Constants.SCHE_TYPE)) {
+			LocalStorageUtil.storeCurrentSchedule(data);
+			try {
+				this.scheduleView.setSchedules(LoadsheddingDataConstructor.getSchedules(ClientFactory.getSchedule()), group);
+			} catch (Exception e) {
+				ClientFactory.Reset();
+			}
+			this.scheduleView.showSchedulePanel(true);
+		} else {
+			//TODO show server not reachable
+		}
+		this.scheduleView.setTestLbl("received" + event.getData() + event.getData().length());
 	}
-	
+
 }

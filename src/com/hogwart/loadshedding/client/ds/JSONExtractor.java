@@ -1,5 +1,6 @@
 package com.hogwart.loadshedding.client.ds;
 
+import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 
 public class JSONExtractor {
@@ -17,7 +18,7 @@ public class JSONExtractor {
 	}
 	
 	private static String extractFromSource() {
-		return JSONMockedSchedule.SCHEDULE;
+		return ClientFactory.getSchedule();
 	}
 
 	public static boolean updateAvailable () {

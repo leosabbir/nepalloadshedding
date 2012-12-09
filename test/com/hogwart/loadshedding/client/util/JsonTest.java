@@ -16,7 +16,7 @@ import com.hogwart.loadshedding.client.model.ScheduleFromTo;
 public class JsonTest extends GWTTestCase {
 	
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		JSONArray obj = (JSONArray) JSONParser.parseStrict(JSONMockedSchedule.SCHEDULE);
 		Assert.assertNotNull(obj);
 		

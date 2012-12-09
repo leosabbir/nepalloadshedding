@@ -84,3 +84,19 @@ body {
 .gwt-Button-selected {
 		background-color: #0C794A;
 	}
+	
+.info {
+	color: #1E5B11;
+	font-size: 11px;
+	margin: 0px 0px 2px 1px;
+	font-weight: bold;
+}
+
+.loadingpanel {
+	color: #1E5B11;
+	font-size:20px;
+  	font-weight:bold;
+  	margin-top:90px;
+  	text-align:center;
+}
+}

@@ -8,16 +8,15 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.model.LoadsheddingStatus;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
-import com.hogwart.loadshedding.client.util.DataExtractorUtil;
 import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 import com.hogwart.loadshedding.client.util.Utils;
 import com.hogwart.loadshedding.client.view.components.ScheduleComponent;
@@ -37,7 +36,13 @@ public class ScheduleView extends Composite {
 	private int currentSelectedGroup;
 	
 	@UiField
-	Label testLbl;
+	HTMLPanel schedulePanel;
+	
+	@UiField
+	HTMLPanel loadingPanel;
+	
+	@UiField
+	Label infoLbl;
 
 	@UiField
 	Button group1Btn;
@@ -89,8 +94,6 @@ public class ScheduleView extends Composite {
 			this.selectButton(group);
 			LocalStorageUtil.storeCurrentSelectedGroup(group+"");
 			ClientFactory.getEventBus().fireEvent(new GroupChangeEvent(group));
-			
-			DataExtractorUtil.test();
 		}
 	}
 	
@@ -163,6 +166,11 @@ public class ScheduleView extends Composite {
 		this.selectButton(group);
 	}
 	
+	public void showSchedulePanel ( boolean show) {
+		this.schedulePanel.setVisible(show);
+		this.loadingPanel.setVisible(!show);
+	}
+	
 	private void setScheduleAndStatus(ScheduleComponent scheduleComponent, List<ScheduleFromTo> schedules, LoadsheddingStatus status, boolean today) {
 		if ( today ) {
 			scheduleComponent.setStatus(status);
@@ -172,6 +180,6 @@ public class ScheduleView extends Composite {
 	}
 	
 	public void setTestLbl(String txt) {
-		this.testLbl.setText(txt);
+		this.infoLbl.setText("Effective from " + txt);
 	}
 }

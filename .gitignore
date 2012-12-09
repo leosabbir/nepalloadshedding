@@ -11,3 +11,4 @@
 /www-test/**/*
 /test-classes
 /war/WEB-INF/deploy
+/war/com.hogwart.loadshedding.Nepalloadshedding.JUnit

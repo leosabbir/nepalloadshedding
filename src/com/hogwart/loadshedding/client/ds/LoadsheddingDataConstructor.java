@@ -19,8 +19,8 @@ public class LoadsheddingDataConstructor {
 //		return schedules;
 //	}
 	
-	public static List<List<ScheduleFromTo>> getSchedules (String jsonString) {
-		if ( schedules == null ) {
+	public static List<List<ScheduleFromTo>> getSchedules (String jsonString) throws Exception {
+		if ( schedules == null || schedules.size() == 0 ) {
 			setSchedulesFromJSON(jsonString);
 		}
 		return schedules;
@@ -30,7 +30,7 @@ public class LoadsheddingDataConstructor {
 		return schedules;
 	}
 	
-	public static void setSchedulesFromJSON (String jsonString) {
+	public static void setSchedulesFromJSON (String jsonString) throws Exception {
 		schedules = new ArrayList<List<ScheduleFromTo>>();
 		JSONArray jsonArray = (JSONArray) JSONParser.parseStrict(jsonString);
 		

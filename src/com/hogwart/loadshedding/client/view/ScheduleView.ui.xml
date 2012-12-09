@@ -10,24 +10,29 @@
 		}
 	</ui:style>
 	<g:HTMLPanel>
-		<g:Label ui:field="testLbl"></g:Label>
-		<g:FlowPanel>
-			<g:Button ui:field="group1Btn" text="Group 1"/>
-			<g:Button ui:field="group2Btn" text="Group 2"/>
-			<g:Button ui:field="group3Btn" text="Group 3"/>
-			<g:Button ui:field="group4Btn" text="Group 4"/>
-			<g:Button ui:field="group5Btn" text="Group 5"/>
-			<g:Button ui:field="group6Btn" text="Group 6"/>
-			<g:Button ui:field="group7Btn" text="Group 7"/>
-		</g:FlowPanel>
-		<g:FlowPanel styleName="{res.loadsheddingCss.schedulesContainer}">
-			<c:ScheduleComponent day = "SUN" ui:field="sunSchedule"></c:ScheduleComponent>
-			<c:ScheduleComponent day = "MON" ui:field="monSchedule"></c:ScheduleComponent>
-			<c:ScheduleComponent day = "TUE" ui:field="tueSchedule"></c:ScheduleComponent>
-			<c:ScheduleComponent day = "WED" ui:field="wedSchedule"></c:ScheduleComponent>
-			<c:ScheduleComponent day = "THU" ui:field="thuSchedule"></c:ScheduleComponent>
-			<c:ScheduleComponent day = "FRI" ui:field="friSchedule"></c:ScheduleComponent>
-			<c:ScheduleComponent day = "SAT" ui:field="satSchedule"></c:ScheduleComponent>
-		</g:FlowPanel>
+		<g:HTMLPanel ui:field="loadingPanel" styleName="loadingpanel" visible = "false">
+			Update Found<br/>Please Wait....!!!
+		</g:HTMLPanel>
+		<g:HTMLPanel ui:field="schedulePanel" visible = "true">
+			<g:Label ui:field="infoLbl" styleName="info"></g:Label>
+			<g:FlowPanel>
+				<g:Button ui:field="group1Btn" text="Group 1"/>
+				<g:Button ui:field="group2Btn" text="Group 2"/>
+				<g:Button ui:field="group3Btn" text="Group 3"/>
+				<g:Button ui:field="group4Btn" text="Group 4"/>
+				<g:Button ui:field="group5Btn" text="Group 5"/>
+				<g:Button ui:field="group6Btn" text="Group 6"/>
+				<g:Button ui:field="group7Btn" text="Group 7"/>
+			</g:FlowPanel>
+			<g:FlowPanel styleName="{res.loadsheddingCss.schedulesContainer}">
+				<c:ScheduleComponent day = "SUN" ui:field="sunSchedule"></c:ScheduleComponent>
+				<c:ScheduleComponent day = "MON" ui:field="monSchedule"></c:ScheduleComponent>
+				<c:ScheduleComponent day = "TUE" ui:field="tueSchedule"></c:ScheduleComponent>
+				<c:ScheduleComponent day = "WED" ui:field="wedSchedule"></c:ScheduleComponent>
+				<c:ScheduleComponent day = "THU" ui:field="thuSchedule"></c:ScheduleComponent>
+				<c:ScheduleComponent day = "FRI" ui:field="friSchedule"></c:ScheduleComponent>
+				<c:ScheduleComponent day = "SAT" ui:field="satSchedule"></c:ScheduleComponent>
+			</g:FlowPanel>
+		</g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 

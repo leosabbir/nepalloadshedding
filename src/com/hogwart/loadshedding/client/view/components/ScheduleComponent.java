@@ -38,16 +38,12 @@ public class ScheduleComponent extends Composite {
 	
 	public void setDay(String day) {
 		this.dayField.setText(day);
-		
-		//indicatorContainer.add(new LoadsheddingIndicator("test", "on"));
 	}
 	
 	public void setScheduleTimes(List<ScheduleFromTo> scheduleTimes) {
 		this.timeField.clear();
 		for (ScheduleFromTo time : scheduleTimes) {
 			HTML timeLbl = new HTML(time.toString());
-			//InlineLabel lbl = new InlineLabel();
-			//lb
 			this.timeField.add(timeLbl);
 		}
 	}

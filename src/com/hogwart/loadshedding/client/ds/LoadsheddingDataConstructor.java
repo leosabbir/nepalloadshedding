@@ -20,9 +20,7 @@ public class LoadsheddingDataConstructor {
 //	}
 	
 	public static List<List<ScheduleFromTo>> getSchedules (String jsonString) throws Exception {
-		if ( schedules == null || schedules.size() == 0 ) {
-			setSchedulesFromJSON(jsonString);
-		}
+		setSchedulesFromJSON(jsonString);
 		return schedules;
 	}
 	

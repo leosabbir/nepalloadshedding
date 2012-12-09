@@ -164,6 +164,7 @@ public class ScheduleView extends Composite {
 			}
 		}
 		this.selectButton(group);
+		this.setTestLbl(ClientFactory.getEffectiveFrom());
 	}
 	
 	public void showSchedulePanel ( boolean show) {

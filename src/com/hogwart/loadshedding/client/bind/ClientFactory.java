@@ -21,7 +21,7 @@ public class ClientFactory {
 	}
 	
 	public static void setScheduleVersion ( String scheduleVersion) throws Exception {
-		String[] comps = scheduleVersion.split("::");
+		String[] comps = scheduleVersion.split(":");
 		_scheduleVersion = comps[0];
 		_effectiveFrom = comps[1];
 	}

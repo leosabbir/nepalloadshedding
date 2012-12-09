@@ -53,13 +53,18 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler, DataRece
 		
 		if ( type.equals(Constants.VER_TYPE)) {
 			LocalStorageUtil.storeCurrentScheduleVersion(data);
-			this.scheduleView.setTestLbl(data);
+			try {
+				ClientFactory.setScheduleVersion(data);
+			} catch ( Exception e) {
+				ClientFactory.Reset();
+			}
 			this.scheduleView.showSchedulePanel(false);
 			DataExtractorUtil.extract(Constants.SCHEDULE_URL, Constants.SCHE_TYPE);
 		} else if ( type.equals(Constants.SCHE_TYPE)) {
 			LocalStorageUtil.storeCurrentSchedule(data);
+			ClientFactory.setSchedule(data);
 			try {
-				this.scheduleView.setSchedules(LoadsheddingDataConstructor.getSchedules(ClientFactory.getSchedule()), group);
+				this.scheduleView.setSchedules(LoadsheddingDataConstructor.getSchedules(data), group);
 			} catch (Exception e) {
 				ClientFactory.Reset();
 			}
@@ -67,7 +72,6 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler, DataRece
 		} else {
 			//TODO show server not reachable
 		}
-		this.scheduleView.setTestLbl("received" + event.getData() + event.getData().length());
 	}
 
 }

@@ -36,7 +36,7 @@ public class DataExtractorUtil {
 							ClientFactory.getEventBus().fireEvent(new DataReceivedEvent(schedule, requestType));
 						}
 					} else {
-						ClientFactory.getEventBus().fireEvent(new DataReceivedEvent("asfas", ""));
+						ClientFactory.getEventBus().fireEvent(new DataReceivedEvent("", ""));
 					}
 
 				}

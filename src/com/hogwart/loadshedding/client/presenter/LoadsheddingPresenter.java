@@ -55,11 +55,11 @@ public class LoadsheddingPresenter implements GroupChangeEvent.Handler, DataRece
 			LocalStorageUtil.storeCurrentScheduleVersion(data);
 			try {
 				ClientFactory.setScheduleVersion(data);
+				this.scheduleView.showUpdating();
+				DataExtractorUtil.extract(Constants.SCHEDULE_URL, Constants.SCHE_TYPE);
 			} catch ( Exception e) {
 				ClientFactory.Reset();
 			}
-			this.scheduleView.showUpdating();
-			DataExtractorUtil.extract(Constants.SCHEDULE_URL, Constants.SCHE_TYPE);
 		} else if ( type.equals(Constants.SCHE_TYPE)) {
 			LocalStorageUtil.storeCurrentSchedule(data);
 			ClientFactory.setSchedule(data);

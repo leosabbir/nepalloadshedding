@@ -36,7 +36,7 @@ body {
 	padding: 12px 10px;
 	line-height: 20px;
 	font-weight: bold;
-	font-size: 15px;
+	font-size: 14px;
 /* 	height: 50px; */
 }
 
@@ -69,6 +69,14 @@ body {
 
 .serverconnection-notconnected {
 	margin-left: 130px;
+}
+
+@sprite .serverconnection-connecting > div.icon {
+	gwt-image: "connecting";
+	height: 24px;
+	width: 23px;
+	margin: 0px 4px;
+	float: left;
 }
 
 @sprite .serverconnection-connected > div.icon {

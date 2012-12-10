@@ -54,7 +54,21 @@ public class Time {
 	
 	@Override
 	public String toString () {
-		return NumberFormatUtil.formatNumber(this.hour) + " : " + NumberFormatUtil.formatNumber(this.minute);
+		String ampm = "";
+		int hour = this.hour;
+		int minute = this.minute;
+		if( hour < 12 || hour == 24) {
+			ampm = "AM";
+			if(hour == 24) {
+				hour = 0;
+			}
+		} else {
+			ampm = "PM";
+			if ( hour > 12 ) {
+				hour -= 12;
+			}
+		}
+		return NumberFormatUtil.formatNumber(hour) + " : " + NumberFormatUtil.formatNumber(minute) + " " + ampm;
 	}
 	
 }

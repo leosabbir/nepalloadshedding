@@ -18,9 +18,9 @@ public class ScheduleStatus extends Composite {
 	public ScheduleStatus() {
 		initWidget(uiBinder.createAndBindUi(this));
 		
-		serverconnection.addStyleDependentName("connected");
-		serverconnection.setTitleText("Schedule is Updated!!!");
-		connectionStatus.setText("schedule updated");
+		serverconnection.addStyleDependentName("connecting");
+		serverconnection.setTitleText("communicating with data server..");
+		connectionStatus.setText("connecting......");
 	}
 	
 	@UiField

@@ -29,11 +29,14 @@ public interface LoadsheddingResources extends ClientBundle {
 	@Source("global.css")
 	CssResource globalCss();
 	
-	@Source("bulb_32.png")
+	@Source("bulbOff.png")
 	ImageResource bulbOff();
 	
-	@Source("bulb_off_32.png")
+	@Source("bulbOn.png")
 	ImageResource bulbOn();
+	
+	@Source("yellowcircle.png")
+	ImageResource connecting();
 	
 	@Source("greencircle.png")
 	ImageResource connected();

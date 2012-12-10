@@ -16,12 +16,12 @@
 .timeContainer {
 /* 	display: inline; */
 /* 	position: absolute; */
-	width: 180px;
-	margin: 0px 0px 0px 20px;
+	width: 234px;
+	margin: 0px 0px 0px 0px;
 	float: left;
 	border-left: 1px #7D811C solid;
 	border-right: 1px #7D811C solid;
-	padding: 0 55px;
+	padding: 0 42px;
 	min-height: 40px;
 }
 

@@ -3,23 +3,20 @@
   "manifest_version": 2,
   "version": "1.1",
   "icons": { 
-  				"16" : "icons/bulb_48.png",
-  				"48" : "icons/bulb_48.png",
-  				"128" : "icons/bulb_48.png" 
+  				"16" : "icons/bulbOn.png",
+  				"48" : "icons/bulbOn.png",
+  				"128" : "icons/bulbOn.png" 
   			},
   "description": "Check your loadshedding schedule from your browser",
   "permissions": [
     				"http://www.google.com/",
-    				"http://api.geonames.org",
+    				"http://192.168.1.1/",
     				"http://udacityblogg.appspot.com/",
-    				"http://localhost:8080/loadshedding/edit",
     				"http://udacityblogg.appspot.com/loadshedding.json",
-    				"http://localhost:8080/loadsheddingversion/edit",
-    				"http://udacityblogg.appspot.com/loadsheddingversion.json",
-    				"http://192.168.1.1/"
+    				"http://udacityblogg.appspot.com/loadsheddingversion.json"
   				],
   "browser_action": {
-    					"default_icon": "icons/bulb_off_32.png",
+    					"default_icon": "icons/bulbOn.png",
     					"default_popup": "Nepalloadshedding.html"
   					}
  }

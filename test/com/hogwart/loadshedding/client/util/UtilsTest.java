@@ -1,142 +1,556 @@
 package com.hogwart.loadshedding.client.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.google.gwt.junit.client.GWTTestCase;
+import com.hogwart.loadshedding.client.bind.ClientFactory;
+import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
+import com.hogwart.loadshedding.client.ds.TestSchedules;
 import com.hogwart.loadshedding.client.model.LoadsheddingStatus;
-import com.hogwart.loadshedding.client.model.ScheduleFromTo;
-import com.hogwart.loadshedding.client.model.Time;
 
-public class UtilsTest {
+public class UtilsTest extends GWTTestCase {
 	
-	@Test
-	public void getLoadsheddingStatus() {
-		List<ScheduleFromTo> singleDaySchedule = new ArrayList<ScheduleFromTo>();
-		ScheduleFromTo scheduleLength = new ScheduleFromTo(new Time(6, 0), new Time(9, 0));
-		singleDaySchedule.add(scheduleLength);
-		
-		scheduleLength = new ScheduleFromTo(new Time(18, 0), new Time(22, 0));
-		singleDaySchedule.add(scheduleLength);
-		
-//		scheduleLength = new ScheduleFromTo(new Time(6, 0), new Time(9, 0));
-//		singleDaySchedule.add(scheduleLength);
-		
-		LoadsheddingStatus status = Utils.getLoadsheddingStatus(singleDaySchedule, 7, 0, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(2, status.getHourRemaining());
-		Assert.assertEquals(0, status.getMinuteRemaining());
-		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 8, 23, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(0, status.getHourRemaining());
-		Assert.assertEquals(37, status.getMinuteRemaining());
-		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 8, 58, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(0, status.getHourRemaining());
-		Assert.assertEquals(2, status.getMinuteRemaining());
-		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 7, 58, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(1, status.getHourRemaining());
-		Assert.assertEquals(2, status.getMinuteRemaining());
+	private void testStatus( LoadsheddingStatus status, int expectedStatus, int expectedRemainingHours, int expectedRemainingMinutes) {
+		Assert.assertEquals(expectedStatus, status.getOnOff());
+		Assert.assertEquals(expectedRemainingHours, status.getHourRemaining());
+		Assert.assertEquals(expectedRemainingMinutes, status.getMinuteRemaining());
 	}
 	
 	@Test
-	public void getLoadsheddingStatus2() {
-		List<ScheduleFromTo> singleDaySchedule = new ArrayList<ScheduleFromTo>();
-		ScheduleFromTo scheduleLength = new ScheduleFromTo(new Time(6, 0), new Time(9, 10));
-		singleDaySchedule.add(scheduleLength);
+	public void testGetLoadsheddingStatus() throws Exception {
+		LoadsheddingDataConstructor.setSchedulesFromJSON(TestSchedules.SCHEDULE);
 		
-		scheduleLength = new ScheduleFromTo(new Time(18, 0), new Time(22, 0));
-		singleDaySchedule.add(scheduleLength);
+		//Sunday
+		int day = 0;
+		LoadsheddingStatus status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 2, 0);
+		status = Utils.getLoadsheddingStatus( 2, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus( 5, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+		status = Utils.getLoadsheddingStatus( 7, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 0);
+		status = Utils.getLoadsheddingStatus( 10, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 3, 0);
+		status = Utils.getLoadsheddingStatus( 12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus( 13, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 5, 30);
+		status = Utils.getLoadsheddingStatus( 17, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 0);
+		status = Utils.getLoadsheddingStatus( 21, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 13, 0);
+		status = Utils.getLoadsheddingStatus( 22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 11, 15);
 		
-//		scheduleLength = new ScheduleFromTo(new Time(6, 0), new Time(9, 0));
-//		singleDaySchedule.add(scheduleLength);
+		//Monday
+		day = 1;
+		status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 9, 0);
+		status = Utils.getLoadsheddingStatus( 5, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 4, 35);
+		status = Utils.getLoadsheddingStatus( 10, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 6, 30);
+		status = Utils.getLoadsheddingStatus( 14, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 0);
+		status = Utils.getLoadsheddingStatus( 18, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 2, 0);
+		status = Utils.getLoadsheddingStatus( 19, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus( 21, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+		status = Utils.getLoadsheddingStatus( 23, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 0);
+
+		// Tuesday
+		day = 2;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+		status = Utils.getLoadsheddingStatus(17, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
 		
-		LoadsheddingStatus status = Utils.getLoadsheddingStatus(singleDaySchedule, 7, 0, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(2, status.getHourRemaining());
-		Assert.assertEquals(10, status.getMinuteRemaining());
+		//Wednesday
+		day = 3;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(17, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+	
+		//Thursday
+		day = 4;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(10, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(16, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 5, 15);
 		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 8, 23, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(0, status.getHourRemaining());
-		Assert.assertEquals(47, status.getMinuteRemaining());
 		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 8, 58, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(0, status.getHourRemaining());
-		Assert.assertEquals(12, status.getMinuteRemaining());
+		//Friday
+		day = 5;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus(9, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(13, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 2, 30);
+		status = Utils.getLoadsheddingStatus(18, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 5, 15);
 		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 7, 58, -1, 0);
-		Assert.assertEquals(0, status.getOnOff());
-		Assert.assertEquals(1, status.getHourRemaining());
-		Assert.assertEquals(12, status.getMinuteRemaining());
+		//Saturday
+		day = 6;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus(9, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 0, 30);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 30);
+		status = Utils.getLoadsheddingStatus(19, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 0, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 4, 15);
 	}
 	
 	@Test
-	public void getLoadsheddingStatus3() {
-		List<ScheduleFromTo> singleDaySchedule = new ArrayList<ScheduleFromTo>();
-		ScheduleFromTo scheduleLength = new ScheduleFromTo(new Time(6, 0), new Time(9, 10));
-		singleDaySchedule.add(scheduleLength);
+	public void testGetLoadsheddingStatus2() throws Exception {
+		LoadsheddingDataConstructor.setSchedulesFromJSON(TestSchedules.SCHEDULE2);
 		
-		scheduleLength = new ScheduleFromTo(new Time(18, 0), new Time(22, 0));
-		singleDaySchedule.add(scheduleLength);
+		//Sunday
+		int day = 0;
+		LoadsheddingStatus status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 2, 0);
+		status = Utils.getLoadsheddingStatus( 2, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus( 5, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+		status = Utils.getLoadsheddingStatus( 7, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 0);
+		status = Utils.getLoadsheddingStatus( 10, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 3, 0);
+		status = Utils.getLoadsheddingStatus( 12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus( 13, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 5, 30);
+		status = Utils.getLoadsheddingStatus( 17, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 0);
+		status = Utils.getLoadsheddingStatus( 21, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 13, 0);
+		status = Utils.getLoadsheddingStatus( 22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 11, 15);
 		
-		LoadsheddingStatus status = Utils.getLoadsheddingStatus(singleDaySchedule, 13, 00, -1, 0);
-		Assert.assertEquals(1, status.getOnOff());
-		Assert.assertEquals(5, status.getHourRemaining());
-		Assert.assertEquals(0, status.getMinuteRemaining());
+		//Monday
+		day = 1;
+		status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 9, 0);
+		status = Utils.getLoadsheddingStatus( 5, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 4, 35);
+		status = Utils.getLoadsheddingStatus( 10, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 6, 30);
+		status = Utils.getLoadsheddingStatus( 14, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 0);
+		status = Utils.getLoadsheddingStatus( 18, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 2, 0);
+		status = Utils.getLoadsheddingStatus( 19, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus( 21, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 30);
+		status = Utils.getLoadsheddingStatus( 23, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 0);
+
+		// Tuesday
+		day = 2;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+		status = Utils.getLoadsheddingStatus(17, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
 		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 17, 23, -1, 0);
-		Assert.assertEquals(1, status.getOnOff());
-		Assert.assertEquals(0, status.getHourRemaining());
-		Assert.assertEquals(37, status.getMinuteRemaining());
+		//Wednesday
+		day = 3;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(17, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+	
+		//Thursday
+		day = 4;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(10, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(16, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 5, 15);
 		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 16, 58, -1, 0);
-		Assert.assertEquals(1, status.getOnOff());
-		Assert.assertEquals(1, status.getHourRemaining());
-		Assert.assertEquals(2, status.getMinuteRemaining());
+		
+		//Friday
+		day = 5;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus(9, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(13, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 2, 30);
+		status = Utils.getLoadsheddingStatus(18, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 5, 15);
+		
+		//Saturday
+		day = 6;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus(9, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 0, 30);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 30);
+		status = Utils.getLoadsheddingStatus(19, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 0, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 4, 15);
 	}
 	
 	@Test
-	public void getLoadsheddingStatus4() {
-		List<ScheduleFromTo> singleDaySchedule = new ArrayList<ScheduleFromTo>();
-		ScheduleFromTo scheduleLength = new ScheduleFromTo(new Time(6, 0), new Time(9, 10));
-		singleDaySchedule.add(scheduleLength);
+	public void testGetLoadsheddingStatus3() throws Exception {
+		LoadsheddingDataConstructor.setSchedulesFromJSON(TestSchedules.SCHEDULE3);
 		
-		scheduleLength = new ScheduleFromTo(new Time(18, 30), new Time(22, 0));
-		singleDaySchedule.add(scheduleLength);
+		//Sunday
+		int day = 0;
+		LoadsheddingStatus status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		testStatus(status, 1, 2, 0);
+		status = Utils.getLoadsheddingStatus( 2, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 35);
+		status = Utils.getLoadsheddingStatus( 5, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+		status = Utils.getLoadsheddingStatus( 7, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 0);
+		status = Utils.getLoadsheddingStatus( 10, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 3, 0);
+		status = Utils.getLoadsheddingStatus( 12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus( 13, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 5, 30);
+		status = Utils.getLoadsheddingStatus( 17, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 2, 0);
+		status = Utils.getLoadsheddingStatus( 21, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 27, 0);
+		status = Utils.getLoadsheddingStatus( 22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 25, 15);
 		
-		LoadsheddingStatus status = Utils.getLoadsheddingStatus(singleDaySchedule, 13, 00, -1, 0);
-		Assert.assertEquals(1, status.getOnOff());
-		Assert.assertEquals(5, status.getHourRemaining());
-		Assert.assertEquals(30, status.getMinuteRemaining());
+		//Monday
+		day = 1;
+		status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 23, 0);
+		status = Utils.getLoadsheddingStatus( 5, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 18, 35);
+		status = Utils.getLoadsheddingStatus( 10, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 13, 30);
+		status = Utils.getLoadsheddingStatus( 14, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 10, 0);
+		status = Utils.getLoadsheddingStatus( 18, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 6, 0);
+		status = Utils.getLoadsheddingStatus( 19, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 4, 30);
+		status = Utils.getLoadsheddingStatus( 21, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 2, 30);
+		status = Utils.getLoadsheddingStatus( 23, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 0);
+
+		// Tuesday
+		day = 2;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 3, 30);
+		status = Utils.getLoadsheddingStatus(17, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 27, 30);
 		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 17, 23, -1, 0);
-		Assert.assertEquals(1, status.getOnOff());
-		Assert.assertEquals(1, status.getHourRemaining());
-		Assert.assertEquals(7, status.getMinuteRemaining());
+		//Wednesday
+		day = 3;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 21, 35);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 16, 30);
+		status = Utils.getLoadsheddingStatus(17, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 11, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 8, 30);
+	
+		//Thursday
+		day = 4;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(10, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(16, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 30);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 0, 1, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 52, 15);
 		
-		status = Utils.getLoadsheddingStatus(singleDaySchedule, 16, 58, -1, 0);
-		Assert.assertEquals(1, status.getOnOff());
-		Assert.assertEquals(1, status.getHourRemaining());
-		Assert.assertEquals(32, status.getMinuteRemaining());
+		
+		//Friday
+		day = 5;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 47, 35);
+		status = Utils.getLoadsheddingStatus(9, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 41, 30);
+		status = Utils.getLoadsheddingStatus(13, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 37, 30);
+		status = Utils.getLoadsheddingStatus(18, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 32, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 28, 15);
+		
+		//Saturday
+		day = 6;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 23, 35);
+		status = Utils.getLoadsheddingStatus(9, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 17, 30);
+		status = Utils.getLoadsheddingStatus(12, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 14, 30);
+		status = Utils.getLoadsheddingStatus(19, 30, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 7, 30);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 4, 15);
 	}
 	
 	@Test
-	public void getNumberTest() {
+	public void testGetLoadsheddingStatus4() throws Exception {
+		LoadsheddingDataConstructor.setSchedulesFromJSON(TestSchedules.SCHEDULE4);
+		
+		//Sunday
+		int day = 0;
+		LoadsheddingStatus status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 2, 0);
+		status = Utils.getLoadsheddingStatus( 22, 45, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 25, 15);
+		
+		//Monday
+		day = 1;
+		status = Utils.getLoadsheddingStatus( 1, 0, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 23, 0);
+		status = Utils.getLoadsheddingStatus( 23, 0, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 1, 0);
+
+		// Tuesday
+		day = 2;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 27, 30);
+		
+		//Wednesday
+		day = 3;
+		status = Utils.getLoadsheddingStatus(7, 25, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 21, 35);
+		status = Utils.getLoadsheddingStatus(20, 30, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 8, 30);
+	
+		//Thursday
+		day = 4;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 1, 35);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 52, 15);
+		
+		
+		//Friday
+		day = 5;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+		//testStatus(status, 1, 47, 35);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+		//testStatus(status, 1, 28, 15);
+		
+		//Saturday
+		day = 6;
+		status = Utils.getLoadsheddingStatus(3, 25, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+	//	testStatus(status, 1, 23, 35);
+		status = Utils.getLoadsheddingStatus(22, 45, day, 0);
+		Assert.assertTrue(ClientFactory.isNoLoadsheddin());
+//		testStatus(status, 1, 4, 15);
+	}
+	
+	
+	
+	@Test
+	public void testGetNumberTest() {
 		Assert.assertEquals(4, Utils.getGroupNumber("asfasf4"));
 		Assert.assertEquals(4, Utils.getGroupNumber("asfasfaq34534"));
 		Assert.assertEquals(3, Utils.getGroupNumber("asfasf434543"));
 		Assert.assertEquals(7, Utils.getGroupNumber("asfasf4567"));
 		Assert.assertEquals(3, Utils.getGroupNumber("asfasf4123"));
 		Assert.assertEquals(6, Utils.getGroupNumber("asfasf4456"));
+	}
+
+	@Override
+	public String getModuleName() {
+		return "com.hogwart.loadshedding.Nepalloadshedding";
 	}
 
 }

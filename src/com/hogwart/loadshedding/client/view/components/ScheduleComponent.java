@@ -42,10 +42,16 @@ public class ScheduleComponent extends Composite {
 	
 	public void setScheduleTimes(List<ScheduleFromTo> scheduleTimes) {
 		this.timeField.clear();
-		for (ScheduleFromTo time : scheduleTimes) {
-			HTML timeLbl = new HTML(time.toString());
+		if (scheduleTimes.size() > 0) {
+			for (ScheduleFromTo time : scheduleTimes) {
+				HTML timeLbl = new HTML(time.toString());
+				this.timeField.add(timeLbl);
+			}
+		} else {
+			HTML timeLbl = new HTML("No Loadshedding!!");
 			this.timeField.add(timeLbl);
 		}
+		
 	}
 
 	public void setStatus(LoadsheddingStatus status) {
@@ -59,6 +65,10 @@ public class ScheduleComponent extends Composite {
 		indicatorContainer.add(indicator);
 	}
 	
-	
-
+	public void setNoLoadsheddingStatus() {
+		indicatorContainer.clear();
+		LoadsheddingIndicator indicator = new LoadsheddingIndicator(":-)", "on");
+		indicator.setTitle("BINGO!!! No Loadshedding :)");
+		indicatorContainer.add(indicator);
+	}
 }

@@ -4,7 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.hogwart.loadshedding.client.bind.ClientFactory;
-import com.hogwart.loadshedding.client.ds.JSONMockedSchedule;
+import com.hogwart.loadshedding.client.ds.TestJSONMockedSchedule;
 import com.hogwart.loadshedding.client.event.DataReceivedEvent;
 import com.hogwart.loadshedding.client.event.GroupChangeEvent;
 import com.hogwart.loadshedding.client.presenter.LoadsheddingPresenter;
@@ -48,8 +48,8 @@ public class Nepalloadshedding implements EntryPoint {
 		String schedule = LocalStorageUtil.getCurrentSchedule();
 		
 		if( version == null || schedule == null) {
-			version = JSONMockedSchedule.VERSION;
-			schedule = JSONMockedSchedule.SCHEDULE;
+			version = TestJSONMockedSchedule.VERSION;
+			schedule = TestJSONMockedSchedule.SCHEDULE;
 			
 			LocalStorageUtil.storeCurrentSchedule(schedule);
 			LocalStorageUtil.storeCurrentScheduleVersion(version);

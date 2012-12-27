@@ -144,7 +144,7 @@ public class ScheduleView extends Composite {
 		int minute = date.getMinutes();
 		
 		int sunScheduleIndex = group == 1 ? 0 : 8 - group;
-		LoadsheddingStatus status = Utils.getLoadsheddingStatus(schedules.get((sunScheduleIndex + day) % 7), hour, minute, day, sunScheduleIndex);
+		LoadsheddingStatus status = Utils.getLoadsheddingStatus( hour, minute, day, sunScheduleIndex);
 		
 		for (int i = 0; i < schedules.size(); i++) {
 			if( i == 0) {
@@ -178,7 +178,11 @@ public class ScheduleView extends Composite {
 	
 	private void setScheduleAndStatus(ScheduleComponent scheduleComponent, List<ScheduleFromTo> schedules, LoadsheddingStatus status, boolean today) {
 		if ( today ) {
-			scheduleComponent.setStatus(status);
+			if ( !ClientFactory.isNoLoadsheddin() ) {
+				scheduleComponent.setStatus(status);
+			} else {
+				scheduleComponent.setNoLoadsheddingStatus();
+			}
 			scheduleComponent.addStyleDependentName("selected");
 		}
 		scheduleComponent.setScheduleTimes(schedules);

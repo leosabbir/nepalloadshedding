@@ -2,7 +2,7 @@ package com.hogwart.loadshedding.client.bind;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.hogwart.loadshedding.client.ds.JSONMockedSchedule;
+import com.hogwart.loadshedding.client.ds.TestJSONMockedSchedule;
 import com.hogwart.loadshedding.client.util.DataExtractorUtil;
 import com.hogwart.loadshedding.client.util.LocalStorageUtil;
 
@@ -12,6 +12,7 @@ public class ClientFactory {
 	private static String _scheduleVersion;
 	private static String _schedule;
 	private static String _effectiveFrom;
+	private static boolean _noLoadshedding;
 	
 	public static EventBus getEventBus () {
 		if ( _eventBus == null ) {
@@ -46,15 +47,23 @@ public class ClientFactory {
 		_effectiveFrom = effectiveFrom;
 	}
 	
+	public static void setNoLoadshedding( boolean noLoadshedding ) {
+		_noLoadshedding = noLoadshedding;
+	}
+	
+	public static boolean isNoLoadsheddin () {
+		return _noLoadshedding;
+	}
+	
 	public static void Reset () {
-		LocalStorageUtil.storeCurrentScheduleVersion(JSONMockedSchedule.VERSION);
+		LocalStorageUtil.storeCurrentScheduleVersion(TestJSONMockedSchedule.VERSION);
 		try {
-			ClientFactory.setScheduleVersion(JSONMockedSchedule.VERSION);
+			ClientFactory.setScheduleVersion(TestJSONMockedSchedule.VERSION);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		LocalStorageUtil.storeCurrentSchedule(JSONMockedSchedule.SCHEDULE);
-		ClientFactory.setSchedule(JSONMockedSchedule.SCHEDULE);
+		LocalStorageUtil.storeCurrentSchedule(TestJSONMockedSchedule.SCHEDULE);
+		ClientFactory.setSchedule(TestJSONMockedSchedule.SCHEDULE);
 		DataExtractorUtil.getScheduleVersion();
 	}
 	

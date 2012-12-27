@@ -9,10 +9,11 @@ import com.hogwart.loadshedding.client.model.Time;
 
 public class Utils {
 
-	public static LoadsheddingStatus getLoadsheddingStatus(
-			List<ScheduleFromTo> schedules, int hour, int minute, int day, int sunScheduleIndex) {
+	public static LoadsheddingStatus getLoadsheddingStatus ( int hour, int minute, int day, int sunScheduleIndex ) {
+		int dayScheduleIndex = (sunScheduleIndex + day) % 7;
 		LoadsheddingStatus status = new LoadsheddingStatus();
 		ScheduleFromTo schedule = null;
+		List<ScheduleFromTo> schedules = LoadsheddingDataConstructor.getSchedules().get(dayScheduleIndex);
 		
 		for (ScheduleFromTo scheduleLength : schedules) {
 			if (scheduleLength.includes(hour, minute)) {
@@ -34,7 +35,7 @@ public class Utils {
 		}
 		/*schedule null means there is no next loadshedding schedule today*/
 		if (schedule == null) {
-			Time time = LoadsheddingDataConstructor.getRemainingTime(day, sunScheduleIndex);
+			Time time = LoadsheddingDataConstructor.getNextDayFirstSchedule(1, day, sunScheduleIndex);
 			Time todayRemaining = getTodayRemainingTime(hour, minute);
 			status.setOnOff(1);
 			status.setHourRemaining(todayRemaining.getHour() + time.getHour());
@@ -42,9 +43,16 @@ public class Utils {
 			
 		} else {
 			if (status.getOnOff() == 0) {
+				Time nextDayTimeRemaining;
+				if ( schedule.getToTime().getHour() == 24 ) {
+					nextDayTimeRemaining = LoadsheddingDataConstructor.getNextDayFirstSchedule(0, day, sunScheduleIndex);
+				} else {
+					nextDayTimeRemaining = new Time(0, 0);
+				}
 				Time timeDiff = getTimeDifference(schedule.getToTime(), new Time(hour, minute));
-				status.setHourRemaining(timeDiff.getHour());
-				status.setMinuteRemaining(timeDiff.getMinute());
+				
+				status.setHourRemaining(timeDiff.getHour() + nextDayTimeRemaining.getHour());
+				status.setMinuteRemaining(timeDiff.getMinute() + nextDayTimeRemaining.getMinute());
 			} else {
 				Time timeDiff = getTimeDifference(schedule.getFromTime(), new Time(hour, minute));
 				status.setHourRemaining(timeDiff.getHour());

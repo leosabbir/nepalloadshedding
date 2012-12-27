@@ -1,11 +1,11 @@
 package com.hogwart.loadshedding.client.util;
 
-import com.hogwart.loadshedding.client.ds.JSONMockedSchedule;
+import com.hogwart.loadshedding.client.ds.TestSchedules;
 
 public class ScheduleGenerator {
 	
 	public static void main(String[] args) {
-		System.out.println(JSONMockedSchedule.SCHEDULE);
+		System.out.println(TestSchedules.SCHEDULE3);
 	}
 
 }

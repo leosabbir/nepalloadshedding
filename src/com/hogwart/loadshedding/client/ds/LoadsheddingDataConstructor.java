@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONParser;
+import com.hogwart.loadshedding.client.bind.ClientFactory;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
 import com.hogwart.loadshedding.client.model.Time;
 
@@ -120,23 +121,55 @@ public class LoadsheddingDataConstructor {
 		LoadsheddingDataConstructor.schedules = schedules;
 	}
 
-	public static Time getRemainingTime(int today, int sunScheduleIndex) {
+//	public static Time getRemainingTime(int today, int sunScheduleIndex) {
+//		Time time = new Time(0, 0);
+//
+//		for (int i = 1; i < 7; i++) {
+//			List<ScheduleFromTo> daySchedules = schedules.get((sunScheduleIndex + today + i) % 7);
+//			if (daySchedules.size() > 0) {
+//				time.setHour(time.getHour()
+//						+ daySchedules.get(0).getFromTime().getHour());
+//				time.setMinute(time.getMinute()
+//						+ daySchedules.get(0).getFromTime().getMinute());
+//				break;
+//			} else {
+//				time.setHour(time.getHour() + 24);
+//
+//			}
+//		}
+//
+//		return time;
+//	}
+	
+	public static Time getNextDayFirstSchedule( int status, int today, int sunScheduleIndex ) {
 		Time time = new Time(0, 0);
-
+		boolean scheduleFound = false;
 		for (int i = 1; i < 7; i++) {
 			List<ScheduleFromTo> daySchedules = schedules.get((sunScheduleIndex + today + i) % 7);
 			if (daySchedules.size() > 0) {
-				time.setHour(time.getHour()
-						+ daySchedules.get(0).getFromTime().getHour());
-				time.setMinute(time.getMinute()
-						+ daySchedules.get(0).getFromTime().getMinute());
-				break;
+				scheduleFound = true;
+				if ( status == 0 && daySchedules.get(0).getFromTime().getHour() != 0 ) {
+					return time;
+				}
+				
+				if ( status == 1 ) {
+					time.setHour(time.getHour()
+							+ daySchedules.get(0).getFromTime().getHour());
+					time.setMinute(time.getMinute()
+							+ daySchedules.get(0).getFromTime().getMinute());
+					break;
+				} else {
+					time.setHour(time.getHour()
+							+ daySchedules.get(0).getToTime().getHour());
+					time.setMinute(time.getMinute()
+							+ daySchedules.get(0).getToTime().getMinute());
+					break;
+				}
 			} else {
 				time.setHour(time.getHour() + 24);
-
 			}
 		}
-
+		ClientFactory.setNoLoadshedding(!scheduleFound);
 		return time;
 	}
 

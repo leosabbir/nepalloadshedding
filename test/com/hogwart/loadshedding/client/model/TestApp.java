@@ -82,7 +82,7 @@ public class TestApp {
 		int day = 0;
 		int hour = 21;
 		int minute = 0;
-		LoadsheddingStatus status = Utils.getLoadsheddingStatus(schedules.get(day), hour, minute, day, 1);
+		LoadsheddingStatus status = Utils.getLoadsheddingStatus( hour, minute, day, 1);
 		
 		Assert.assertEquals(1, status.getOnOff());
 		Assert.assertEquals(11, status.getHourRemaining());

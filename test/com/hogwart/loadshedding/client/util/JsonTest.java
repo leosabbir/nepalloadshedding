@@ -9,18 +9,18 @@ import org.junit.Test;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.junit.client.GWTTestCase;
-import com.hogwart.loadshedding.client.ds.JSONMockedSchedule;
 import com.hogwart.loadshedding.client.ds.LoadsheddingDataConstructor;
+import com.hogwart.loadshedding.client.ds.TestJSONMockedSchedule;
 import com.hogwart.loadshedding.client.model.ScheduleFromTo;
 
 public class JsonTest extends GWTTestCase {
 	
 	@Test
 	public void test() throws Exception {
-		JSONArray obj = (JSONArray) JSONParser.parseStrict(JSONMockedSchedule.SCHEDULE);
+		JSONArray obj = (JSONArray) JSONParser.parseStrict(TestJSONMockedSchedule.SCHEDULE);
 		Assert.assertNotNull(obj);
 		
-		LoadsheddingDataConstructor.setSchedulesFromJSON(JSONMockedSchedule.SCHEDULE);
+		LoadsheddingDataConstructor.setSchedulesFromJSON(TestJSONMockedSchedule.SCHEDULE);
 		
 		Assert.assertEquals(7, LoadsheddingDataConstructor.getSchedules().size());
 		
@@ -34,32 +34,32 @@ public class JsonTest extends GWTTestCase {
 			
 			switch (i) {
 			case 0:
-				this.confirmValues(firstSchedule, 5, 0, 9, 0);
-				this.confirmValues(secondSchedule, 13, 0, 17, 0);
+				this.confirmValues(firstSchedule, 3, 0, 9, 0);
+				this.confirmValues(secondSchedule, 13, 0, 18, 0);
 				break;
 			case 1:
-				this.confirmValues(firstSchedule, 12, 0, 16, 30);
-				this.confirmValues(secondSchedule, 19, 30, 23, 0);
+				this.confirmValues(firstSchedule, 11, 0, 17, 0);
+				this.confirmValues(secondSchedule, 20, 0, 24, 0);
 				break;
 			case 2:
-				this.confirmValues(firstSchedule, 11, 0, 15, 0);
-				this.confirmValues(secondSchedule, 19, 0, 22, 0);
+				this.confirmValues(firstSchedule, 10, 0, 14, 0);
+				this.confirmValues(secondSchedule, 19, 0, 24, 0);
 				break;
 			case 3:
 				this.confirmValues(firstSchedule, 9, 0, 13, 0);
-				this.confirmValues(secondSchedule, 17, 0, 21, 0);
+				this.confirmValues(secondSchedule, 18, 0, 22, 0);
 				break;
 			case 4:
-				this.confirmValues(firstSchedule, 7, 30, 12, 0);
-				this.confirmValues(secondSchedule, 17, 0, 20, 30);
+				this.confirmValues(firstSchedule, 6, 0, 12, 0);
+				this.confirmValues(secondSchedule, 17, 0, 21, 0);
 				break;
 			case 5:
-				this.confirmValues(firstSchedule, 6, 0, 11, 0);
-				this.confirmValues(secondSchedule, 16, 30, 19, 30);
+				this.confirmValues(firstSchedule, 5, 0, 11, 0);
+				this.confirmValues(secondSchedule, 16, 0, 20, 0);
 				break;
 			default:
-				this.confirmValues(firstSchedule, 5, 0, 10, 0);
-				this.confirmValues(secondSchedule, 15, 0, 19, 0);
+				this.confirmValues(firstSchedule, 4, 0, 10, 0);
+				this.confirmValues(secondSchedule, 14, 0, 19, 0);
 				break;
 			}
 		}

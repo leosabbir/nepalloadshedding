@@ -57,10 +57,13 @@ public class ScheduleComponent extends Composite {
 	public void setStatus(LoadsheddingStatus status) {
 		indicatorContainer.clear();
 		LoadsheddingIndicator indicator = new LoadsheddingIndicator(status.getTime(), status.getOnOff() == 0 ? "off" : "on");
+		
+		String hours = status.getHourRemaining() > 1 ? "hours" : "hour";
+		String minutes = status.getMinuteRemaining() > 1 ? "minutes" : "minute";
 		if( status.getOnOff() == 0 ) {
-			indicator.setTitle("Light will come after " + status.getHourRemaining() + " hours " + status.getMinuteRemaining() + "minutes.");
+			indicator.setTitle("Light will come after " + status.getHourRemaining() + " " + hours + " " + status.getMinuteRemaining() + " " + minutes + ".");
 		} else {
-			indicator.setTitle("Light will remain for " + status.getHourRemaining() + " hours " + status.getMinuteRemaining() + "minutes.");
+			indicator.setTitle("Light will remain for " + status.getHourRemaining() + " " + hours + " " + status.getMinuteRemaining() + " " + minutes + ".");
 		}
 		indicatorContainer.add(indicator);
 	}

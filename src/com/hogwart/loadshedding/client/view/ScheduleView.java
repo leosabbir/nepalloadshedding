@@ -93,6 +93,7 @@ public class ScheduleView extends Composite {
 		if ( this.currentSelectedGroup != group ) {
 			this.selectButton(group);
 			LocalStorageUtil.storeCurrentSelectedGroup(group+"");
+			//NotificationUtil.createNotification(1, 10);
 			ClientFactory.getEventBus().fireEvent(new GroupChangeEvent(group));
 		}
 	}

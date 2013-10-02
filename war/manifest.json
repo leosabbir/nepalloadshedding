@@ -1,21 +1,26 @@
 {
   "name": "Nepal Loadshedding",
-  "manifest_version": 3,
-  "version": "1.2",
+  "manifest_version": 2,
+  "version": "1.4",
   "icons": { 
   				"16" : "icons/bulbOn.png",
   				"48" : "icons/bulbOn.png",
   				"128" : "icons/bulbOn.png" 
   			},
   "description": "Check your loadshedding schedule from your browser",
+  "background": {
+    				"scripts": ["notification2.js"],
+    				"persistent": true
+  				},
   "permissions": [
-    				"http://localhost:8080/",
-    				"http://localhost:8080/loadsheddingversion.json",
-    				"http://localhost:8080/loadshedding.json",
+  					"notifications",
     				"http://udacityblogg.appspot.com/",
     				"http://udacityblogg.appspot.com/loadshedding.json",
     				"http://udacityblogg.appspot.com/loadsheddingversion.json"
   				],
+  "web_accessible_resources": [
+    								"icons/bulbOn.png"
+  								],
   "browser_action": {
     					"default_icon": "icons/bulbOn.png",
     					"default_popup": "Nepalloadshedding.html"

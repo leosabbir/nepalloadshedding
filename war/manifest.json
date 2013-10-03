@@ -9,7 +9,7 @@
   			},
   "description": "Check your loadshedding schedule from your browser",
   "background": {
-    				"scripts": ["notification2.js"],
+    				"scripts": ["json.js", "notification2.js"],
     				"persistent": true
   				},
   "permissions": [

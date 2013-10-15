@@ -1,25 +1,90 @@
-alert("reached here");
-
+//alert("reached here");
+//TODO after user changes group selection getcurrent id (returned by setInterval) call setInterval again
 var schedules = JSON.parse(localStorage.nepalLoadsheddingSchedule);
-var ss = new Time(0,0)
+var id;
+var firstRun = true;
+var notification;
 
 function show() {
-	var group = 5;
+	console.log("starting...")
+	var group = localStorage.nepalLoadsheddingGroup;
+	var prevGroup = localStorage.prevGroup;
+	
+	//TEST only
+	//group = 1;
 	var sunScheduleIndex = group == 1 ? 0 : 8 - group;
-	var status = getScheduleStatus(21, 37, 4, sunScheduleIndex)
-	var notification = webkitNotifications.createNotification(
+	
+	var date = new Date();
+	var hour = date.getHours();
+	var minute = date.getMinutes();
+	var day = date.getDay();
+	
+	//TEST only
+	//hour = 9;
+	//minute = 48;
+	//day = 6;
+	
+	var status = getScheduleStatus(hour, minute, day, sunScheduleIndex)
+	var msg;
+	if (status.status == 0) {
+		if (firstRun || (status.hoursRemaining == 0 && status.minutesRemaining <= 10)) {
+			msg = "Light will come after " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
+			firstRun = false;
+		}
+	} else {
+		if (firstRun || (status.hoursRemaining == 0 && status.minutesRemaining <= 10)) {
+			msg = "Light will remain for " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
+			firstRun = false;
+		}
+	}
+	
+	var intervalMinute = 1;
+	console.log(status.hoursRemaining + " hr " + status.minutesRemaining + " min")
+	if ( msg != undefined && prevGroup != group) {
+		if ( notification != undefined ) {
+			notification.cancel();
+		}
+		
+		notification = webkitNotifications.createNotification(
 			'icons/bulbOn.png', // icon url - can be relative
 			'!!! LOADSHEDDING ALERT !!!', // notification title
 			//schedules[0][0][0] + schedules[0][0][3]  // notification body text
-			status.status + " " + status.hoursRemaining + " " + status.minutesRemaining
+			//status.status + " " + status.hoursRemaining + " " + status.minutesRemaining
+			"Selected Group: " + group + "\n" + msg
 			
-	);
-	notification.show();
+		);
+		
+		notification.show();
+	}
+//	var interval = ( status.hoursRemaining * 60 * 60 + status.minutesRemaining * 60 - 10 * 60) * 1000;
+//	if ( interval <= 0) {
+//		console.log("negative")
+//		console.log(interval)
+//		//TODO get next interval
+//		var minutesRemaining = status.minutesRemaining;
+//		minute += minutesRemaining + 1;
+//		if (minute >= 60 ) {
+//			minute -= 60;
+//			hour += 1;
+//		}
+//		status = getScheduleStatus(hour, minute + minutesRemaining, day, sunScheduleIndex)
+//		interval = ( status.hoursRemaining * 60 * 60 + status.minutesRemaining * 60 + minutesRemaining * 60) * 1000;
+//		console.log(interval)
+//	}
+	
+	clearInterval(id);
+	//id = setInterval(show, interval);
+	id = setInterval(show, intervalMinute * 5 * 1000);
+	//console.log("next alert after: " + (interval/(1000*60)) + " minutes")
+	
+	//notification.show();
+	//notification.close();
+	prevGroup = group;
+	localStorage.prevGroup = group;
 }
 
-var interval = 1000 * 10;
 if (webkitNotifications) {
-	setInterval(show, interval);
+	show();
 }
 
 function getScheduleStatus(hour, minute, day, sundayScheduleIndex) {
@@ -156,12 +221,7 @@ function getNextDayFirstSchedule(status, today, sundayScheduleIndex) {
 			var fromMinute = daySchedules[0][1];
 			var toHour = daySchedules[0][2];
 			var toMinute = daySchedules[0][3];
-			console.log("logging...")
-			console.log(fromHour)
-			console.log(fromMinute)
-			console.log(toHour)
-			console.log(toMinute)
-			
+						
 			var from = new Time(fromHour, fromMinute);
 			var to = new Time(toHour, toMinute);
 			var currentSchedule = new Schedule(from, to);
@@ -172,8 +232,6 @@ function getNextDayFirstSchedule(status, today, sundayScheduleIndex) {
 			if ( status == 1 ) {
 				time.hour = time.hour + currentSchedule.from.hour;
 				time.minute = time.minute + currentSchedule.from.minute;
-				//TODO
-				//console.log(time.minute)
 				break;
 			} else {
 				time.hour = time.hour + currentSchedule.to.hour;

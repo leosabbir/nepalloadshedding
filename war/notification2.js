@@ -74,7 +74,7 @@ function show() {
 	
 	clearInterval(id);
 	//id = setInterval(show, interval);
-	id = setInterval(show, intervalMinute * 5 * 1000);
+	id = setInterval(show, intervalMinute * 60 * 1000);
 	//console.log("next alert after: " + (interval/(1000*60)) + " minutes")
 	
 	//notification.show();

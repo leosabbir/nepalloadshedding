@@ -29,18 +29,17 @@ function show() {
 	if (status.status == 0) {
 		if (firstRun || (status.hoursRemaining == 0 && status.minutesRemaining <= 10)) {
 			msg = "Light will come after " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
-			firstRun = false;
 		}
 	} else {
 		if (firstRun || (status.hoursRemaining == 0 && status.minutesRemaining <= 10)) {
 			msg = "Light will remain for " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
-			firstRun = false;
 		}
 	}
 	
 	var intervalMinute = 1;
 	console.log(status.hoursRemaining + " hr " + status.minutesRemaining + " min")
-	if ( msg != undefined && prevGroup != group) {
+	if ( firstRun || ( msg != undefined && prevGroup != group )) {
+		firstRun = false;
 		if ( notification != undefined ) {
 			notification.cancel();
 		}

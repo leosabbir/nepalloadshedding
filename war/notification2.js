@@ -4,6 +4,7 @@ var schedules = JSON.parse(localStorage.nepalLoadsheddingSchedule);
 var id;
 var firstRun = true;
 var notification;
+var reverted = true;
 
 function show() {
 	console.log("starting...")
@@ -28,17 +29,30 @@ function show() {
 	var msg;
 	if (status.status == 0) {
 		if (firstRun || (status.hoursRemaining == 0 && status.minutesRemaining <= 10)) {
-			msg = "Light will come after " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
+			if (status.minutesRemaining == 0) {
+				reverted = true;
+				msg = "Light has come just now";
+			} else {
+				msg = "Light will come after " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
+			}
 		}
 	} else {
 		if (firstRun || (status.hoursRemaining == 0 && status.minutesRemaining <= 10)) {
-			msg = "Light will remain for " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
+			if (status.minutesRemaining == 0) {
+				reverted = true;
+				msg = "Light has gone just now";
+			} else {
+				msg = "Light will remain for " + status.hoursRemaining + " hr " + status.minutesRemaining + " min";
+			}
 		}
 	}
 	
 	var intervalMinute = 1;
 	console.log(status.hoursRemaining + " hr " + status.minutesRemaining + " min")
-	if ( firstRun || ( msg != undefined && prevGroup != group )) {
+	if ( firstRun || ( msg != undefined && reverted )) {
+		if ( !firstRun ||  (status.hoursRemaining == 0 && status.minutesRemaining <= 10)) {
+			reverted = false;
+		}
 		firstRun = false;
 		if ( notification != undefined ) {
 			notification.cancel();
@@ -53,7 +67,16 @@ function show() {
 			
 		);
 		
+		setTimeout(function(){
+			notification.cancel();
+		}, 20 * 1000);
+		
 		notification.show();
+		localStorage.prevGroup = group;
+	} else {
+		// diff == 0
+		// or  
+		localStorage.prevGroup = 0;
 	}
 //	var interval = ( status.hoursRemaining * 60 * 60 + status.minutesRemaining * 60 - 10 * 60) * 1000;
 //	if ( interval <= 0) {
@@ -79,7 +102,6 @@ function show() {
 	//notification.show();
 	//notification.close();
 	prevGroup = group;
-	localStorage.prevGroup = group;
 }
 
 if (webkitNotifications) {

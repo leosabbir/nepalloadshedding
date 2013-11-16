@@ -1,6 +1,14 @@
 //alert("reached here");
 //TODO after user changes group selection getcurrent id (returned by setInterval) call setInterval again
-var schedules = JSON.parse(localStorage.nepalLoadsheddingSchedule);
+var schedules;
+try {
+	schedules = JSON.parse(localStorage.nepalLoadsheddingSchedule);
+} catch(err) {	
+	localStorage.nepalLoadsheddingGroup = 1;
+	localStorage.nepalLoadsheddingScheduleVersion = "14:2070-06-31:dropbox";
+	localStorage.nepalLoadsheddingSchedule = "[[[5,0,8,0],[13,0,17,0]],[[8,0,11,0],[17,0,20,0]],[[10,0,14,0],[19,30,21,30]],[[6,0,9,0],[14,0,18,0]],[[11,0,16,0],[20,0,22,0]],[[7,0,10,0],[16,0,19,30]],[[9,0,13,0],[18,0,21,0]]]";
+	schedules = JSON.parse(localStorage.nepalLoadsheddingSchedule);
+}
 var id;
 var firstRun = true;
 var notification;
@@ -8,6 +16,7 @@ var reverted = true;
 
 function show() {
 	console.log("starting...")
+
 	var group = localStorage.nepalLoadsheddingGroup;
 	var prevGroup = localStorage.prevGroup;
 	

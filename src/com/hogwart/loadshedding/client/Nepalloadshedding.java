@@ -54,7 +54,17 @@ public class Nepalloadshedding implements EntryPoint {
 			
 			LocalStorageUtil.storeCurrentSchedule(schedule);
 			LocalStorageUtil.storeCurrentScheduleVersion(version);
-
+		}
+		
+		Boolean notificationEnabled = LocalStorageUtil.getNotificationEnabled();
+		Integer notificationTime = LocalStorageUtil.getNotificationTime();
+		
+		if (notificationEnabled == null || notificationTime == null) {
+			notificationEnabled = false;
+			notificationTime = 10;
+			
+			LocalStorageUtil.storeNotificationEnabled(notificationEnabled);
+			LocalStorageUtil.storeNotificationTime(notificationTime);
 		}
 		
 		try {
@@ -63,5 +73,7 @@ public class Nepalloadshedding implements EntryPoint {
 			ClientFactory.Reset();
 		}
 		ClientFactory.setSchedule(schedule);
+		ClientFactory.setNotificationEnabled(notificationEnabled);
+		ClientFactory.setNotificationTime(notificationTime);
 	}
 }

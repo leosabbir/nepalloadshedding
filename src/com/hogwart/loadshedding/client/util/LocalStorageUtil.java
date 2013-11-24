@@ -25,5 +25,21 @@ public class LocalStorageUtil {
 	public static native void storeCurrentScheduleVersion(String scheduleVersion) /*-{
 		localStorage.nepalLoadsheddingScheduleVersion = scheduleVersion;
 	}-*/;
+	
+	public static native void storeNotificationEnabled(boolean notificationEnabled) /*-{
+		localStorage.nepalLoadsheddingNotificationEnabled = schedule;
+	}-*/;
+
+	public static native boolean getNotificationEnabled () /*-{
+		return localStorage.nepalLoadsheddingNotificationEnabled;
+	}-*/;
+	
+	public static native void storeNotificationTime(int notificationEnabled) /*-{
+		localStorage.nepalLoadsheddingNotificationTime = schedule;
+	}-*/;
+
+	public static native int getNotificationTime () /*-{
+		return localStorage.nepalLoadsheddingNotificationTime;
+	}-*/;
 
 }

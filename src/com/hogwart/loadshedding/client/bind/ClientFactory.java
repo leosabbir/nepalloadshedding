@@ -13,6 +13,8 @@ public class ClientFactory {
 	private static String _schedule;
 	private static String _effectiveFrom;
 	private static boolean _noLoadshedding;
+	private static boolean _notificationEnabled;
+	private static int notificationTime;
 	
 	public static EventBus getEventBus () {
 		if ( _eventBus == null ) {
@@ -63,8 +65,26 @@ public class ClientFactory {
 			e.printStackTrace();
 		}
 		LocalStorageUtil.storeCurrentSchedule(TestJSONMockedSchedule.SCHEDULE);
+		LocalStorageUtil.storeNotificationEnabled(false);
+		LocalStorageUtil.storeNotificationTime(10);
 		ClientFactory.setSchedule(TestJSONMockedSchedule.SCHEDULE);
 		DataExtractorUtil.getScheduleVersion();
+	}
+
+	public static boolean isNotificationEnabled() {
+		return _notificationEnabled;
+	}
+
+	public static void setNotificationEnabled(boolean notificationEnabled) {
+		ClientFactory._notificationEnabled = notificationEnabled;
+	}
+
+	public static int getNotificationTime() {
+		return notificationTime;
+	}
+
+	public static void setNotificationTime(int notificationTime) {
+		ClientFactory.notificationTime = notificationTime;
 	}
 	
 }

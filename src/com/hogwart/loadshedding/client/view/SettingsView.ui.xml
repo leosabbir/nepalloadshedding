@@ -9,7 +9,7 @@
 	<g:HTMLPanel>
 		<g:CheckBox ui:field="enableNotification"></g:CheckBox>
 		<g:TextBox ui:field="notificationTime"></g:TextBox>
-		<g:Label ui:field="errorLbl"></g:Label>
-		<g:Button ui:field="confirm">OK</g:Button>
+		<g:Button ui:field="confirm">Save</g:Button>
+		<g:Label ui:field="errorLbl" visible="false"></g:Label>
 	</g:HTMLPanel>
 </ui:UiBinder> 

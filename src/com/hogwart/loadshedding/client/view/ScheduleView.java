@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
@@ -34,6 +35,15 @@ public class ScheduleView extends Composite {
 	}
 	
 	private int currentSelectedGroup;
+	
+	@UiField
+	Anchor viewSwitchAnchor;
+	
+	@UiField
+	HTMLPanel settingsPanelContainer;
+	
+	@UiField
+	HTMLPanel schedulePanelContainer;
 	
 	@UiField
 	HTMLPanel schedulePanel;
@@ -95,6 +105,19 @@ public class ScheduleView extends Composite {
 			LocalStorageUtil.storeCurrentSelectedGroup(group+"");
 			//NotificationUtil.createNotification(1, 10);
 			ClientFactory.getEventBus().fireEvent(new GroupChangeEvent(group));
+		}
+	}
+	
+	@UiHandler("viewSwitchAnchor")
+	void onViewSwitch(ClickEvent e) {
+		if (this.viewSwitchAnchor.getText().equals("settings")) {
+			this.schedulePanelContainer.setVisible(false);
+			this.settingsPanelContainer.setVisible(true);
+			this.viewSwitchAnchor.setText("schedule");
+		} else {
+			this.schedulePanelContainer.setVisible(true);
+			this.settingsPanelContainer.setVisible(false);
+			this.viewSwitchAnchor.setText("settings");
 		}
 	}
 	

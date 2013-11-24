@@ -27,18 +27,18 @@ public class LocalStorageUtil {
 	}-*/;
 	
 	public static native void storeNotificationEnabled(boolean notificationEnabled) /*-{
-		localStorage.nepalLoadsheddingNotificationEnabled = schedule;
+		localStorage.nepalLoadsheddingNotificationEnabled = notificationEnabled;
 	}-*/;
 
-	public static native boolean getNotificationEnabled () /*-{
+	public static native String getNotificationEnabled () /*-{
 		return localStorage.nepalLoadsheddingNotificationEnabled;
 	}-*/;
 	
-	public static native void storeNotificationTime(int notificationEnabled) /*-{
-		localStorage.nepalLoadsheddingNotificationTime = schedule;
+	public static native void storeNotificationTime(int notificationTime) /*-{
+		localStorage.nepalLoadsheddingNotificationTime = notificationTime;
 	}-*/;
 
-	public static native int getNotificationTime () /*-{
+	public static native String getNotificationTime () /*-{
 		return localStorage.nepalLoadsheddingNotificationTime;
 	}-*/;
 

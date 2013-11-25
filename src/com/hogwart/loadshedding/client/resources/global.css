@@ -138,13 +138,40 @@ body {
   	text-align:center;
 }
 
+.bodyContainer {
+	width: 520px;
+	height: 500px;
+}
+
 .settings {
 	cursor: pointer;
 }
 
 .settingsPanel {
 	text-align:center;
-	padding: 1px 0;	
+	padding: 1px 0;
+}
+
+.settingsContainer{
+	padding: 10px;
+	background-color: #1B4753;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+}
+
+.errorLabel{
+	color: red;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px 0px 5px 165px;
+}
+
+.savedLabel{
+	color: green;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px 0px 5px 165px;
 }
 
 .scheduleStatusContainer {

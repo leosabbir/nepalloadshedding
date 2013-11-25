@@ -6,10 +6,19 @@
 			font-weight: bold;
 		}
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel styleName="settingsContainer">
+		<div>
+		<g:InlineLabel>Enable Notification</g:InlineLabel>
 		<g:CheckBox ui:field="enableNotification"></g:CheckBox>
+		</div>
+		<div>
+		<g:InlineLabel>Notification Time (0-60 min)</g:InlineLabel>
 		<g:TextBox ui:field="notificationTime"></g:TextBox>
+		</div>
+		<div>
+		<g:Label ui:field="errorLbl" visible="false" styleName="errorLabel"></g:Label>
+		</div>
 		<g:Button ui:field="confirm">Save</g:Button>
-		<g:Label ui:field="errorLbl" visible="false"></g:Label>
+		
 	</g:HTMLPanel>
 </ui:UiBinder> 

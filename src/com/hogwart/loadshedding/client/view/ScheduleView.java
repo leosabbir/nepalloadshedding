@@ -95,6 +95,9 @@ public class ScheduleView extends Composite {
 	
 	@UiField
 	ScheduleComponent satSchedule;
+	
+	@UiField
+	SettingsView settingsView;
 
 
 	@UiHandler({"group1Btn", "group2Btn", "group3Btn", "group4Btn", "group5Btn", "group6Btn", "group7Btn"})
@@ -110,14 +113,15 @@ public class ScheduleView extends Composite {
 	
 	@UiHandler("viewSwitchAnchor")
 	void onViewSwitch(ClickEvent e) {
-		if (this.viewSwitchAnchor.getText().equals("settings")) {
+		if (this.viewSwitchAnchor.getText().equals("SETTINGS >>")) {
 			this.schedulePanelContainer.setVisible(false);
 			this.settingsPanelContainer.setVisible(true);
-			this.viewSwitchAnchor.setText("schedule");
+			this.viewSwitchAnchor.setText("<< SCHEDULE");
+			this.settingsView.hideSaveResult();
 		} else {
 			this.schedulePanelContainer.setVisible(true);
 			this.settingsPanelContainer.setVisible(false);
-			this.viewSwitchAnchor.setText("settings");
+			this.viewSwitchAnchor.setText("SETTINGS >>");
 		}
 	}
 	

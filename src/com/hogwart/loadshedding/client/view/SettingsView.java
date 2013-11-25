@@ -1,6 +1,7 @@
 package com.hogwart.loadshedding.client.view;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -47,23 +48,45 @@ public class SettingsView extends Composite {
 
 	@UiHandler("enableNotification")
 	void onEnableNotificationClick(ClickEvent e) {
-		//TODO save in local storage
-		
+		this.notificationTime.setEnabled(this.enableNotification.getValue());
+		this.errorLbl.setVisible(true);
+		this.errorLbl.setStyleName("savedLabel");
+		this.errorLbl.setText("Settings Changed");
+	}
+	
+	@UiHandler("notificationTime")
+	void onValueChange(ChangeEvent e) {
+		this.errorLbl.setVisible(true);
+		this.errorLbl.setStyleName("savedLabel");
+		this.errorLbl.setText("Settings Changed");
 	}
 	
 	@UiHandler("confirm")
 	void onTimeConfirm(ClickEvent e) {
 		int notificationTime;
-		this.errorLbl.setVisible(false);
+		this.errorLbl.setVisible(true);
+		this.errorLbl.setStyleName("savedLabel");
+		this.errorLbl.setText("Saving.....");
 		try {
 			notificationTime = Integer.parseInt(this.notificationTime.getText());
-			LocalStorageUtil.storeNotificationEnabled(this.enableNotification.getValue());
-			LocalStorageUtil.storeNotificationTime(notificationTime);
-		} catch (NumberFormatException excptn) {
+			if (notificationTime >=0 && notificationTime <= 60) {
+				LocalStorageUtil.storeNotificationEnabled(this.enableNotification.getValue());
+				LocalStorageUtil.storeNotificationTime(notificationTime);
+				this.errorLbl.setText("Saved");
+				this.errorLbl.setVisible(true);
+				this.errorLbl.setStyleName("savedLabel");
+			} else {
+				throw new Exception();
+			}
+		} catch (Exception excptn) {
 			this.errorLbl.setText("Please enter valid notification time");
 			this.errorLbl.setVisible(true);
+			this.errorLbl.setStyleName("errorLabel");
 		}
 	}
 	
+	public void hideSaveResult() {
+		this.errorLbl.setVisible(false);
+	}
 	
 }

@@ -9,12 +9,12 @@
 			font-weight: bold;
 		}
 	</ui:style>
-	<g:HTMLPanel>
+	<g:HTMLPanel styleName="bodyContainer">
 		<g:HTMLPanel styleName="settingsPanel">
-			<g:Anchor ui:field="viewSwitchAnchor" styleName="settings">settings</g:Anchor>
+			<g:Anchor ui:field="viewSwitchAnchor" styleName="settings">SETTINGS >></g:Anchor>
 		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="settingsPanelContainer" visible="false">
-			<v:SettingsView></v:SettingsView>
+			<v:SettingsView ui:field="settingsView"></v:SettingsView>
 		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="schedulePanelContainer">
 			<g:HTMLPanel ui:field="loadingPanel" styleName="loadingpanel"

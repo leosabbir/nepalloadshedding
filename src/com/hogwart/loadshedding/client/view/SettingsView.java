@@ -44,21 +44,22 @@ public class SettingsView extends Composite {
 		} else {
 			this.notificationTime.setText("10");
 		}
+		this.notificationTime.setEnabled(enableNotification);
 	}
 
 	@UiHandler("enableNotification")
 	void onEnableNotificationClick(ClickEvent e) {
 		this.notificationTime.setEnabled(this.enableNotification.getValue());
-		this.errorLbl.setVisible(true);
+		//this.errorLbl.setVisible(true);
 		this.errorLbl.setStyleName("savedLabel");
-		this.errorLbl.setText("Settings Changed");
+		//this.errorLbl.setText("Settings Changed");
 	}
 	
 	@UiHandler("notificationTime")
 	void onValueChange(ChangeEvent e) {
-		this.errorLbl.setVisible(true);
+		//this.errorLbl.setVisible(true);
 		this.errorLbl.setStyleName("savedLabel");
-		this.errorLbl.setText("Settings Changed");
+		//this.errorLbl.setText("Settings Changed");
 	}
 	
 	@UiHandler("confirm")
@@ -72,6 +73,7 @@ public class SettingsView extends Composite {
 			if (notificationTime >=0 && notificationTime <= 60) {
 				LocalStorageUtil.storeNotificationEnabled(this.enableNotification.getValue());
 				LocalStorageUtil.storeNotificationTime(notificationTime);
+				LocalStorageUtil.storeNotificationChanged(true);
 				this.errorLbl.setText("Saved");
 				this.errorLbl.setVisible(true);
 				this.errorLbl.setStyleName("savedLabel");

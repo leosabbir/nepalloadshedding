@@ -19,6 +19,17 @@ public class UtilsTest extends GWTTestCase {
 	}
 	
 	@Test
+	public void test() throws Exception {
+		LoadsheddingDataConstructor.setSchedulesFromJSON(TestSchedules.SCHEDULE);
+		
+		//Sunday
+		int day = 0;
+		LoadsheddingStatus status = Utils.getLoadsheddingStatus( 3, 0, day, 0);
+		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
+		testStatus(status, 1, 0, 0);
+	}
+	
+	@Test
 	public void testGetLoadsheddingStatus() throws Exception {
 		LoadsheddingDataConstructor.setSchedulesFromJSON(TestSchedules.SCHEDULE);
 		
@@ -54,6 +65,7 @@ public class UtilsTest extends GWTTestCase {
 		status = Utils.getLoadsheddingStatus( 22, 45, day, 0);
 		Assert.assertFalse(ClientFactory.isNoLoadsheddin());
 		testStatus(status, 1, 11, 15);
+		
 		
 		//Monday
 		day = 1;

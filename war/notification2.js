@@ -7,6 +7,7 @@ try {
 	localStorage.nepalLoadsheddingGroup = 1;
 	localStorage.nepalLoadsheddingScheduleVersion = "14:2070-06-31:dropbox";
 	localStorage.nepalLoadsheddingSchedule = "[[[5,0,8,0],[13,0,17,0]],[[8,0,11,0],[17,0,20,0]],[[10,0,14,0],[19,30,21,30]],[[6,0,9,0],[14,0,18,0]],[[11,0,16,0],[20,0,22,0]],[[7,0,10,0],[16,0,19,30]],[[9,0,13,0],[18,0,21,0]]]";
+	localStorage.nepalLoadsheddingScheduleChanged = "true";
 	schedules = JSON.parse(localStorage.nepalLoadsheddingSchedule);
 }
 var id;
@@ -16,18 +17,23 @@ var reverted = true;
 
 function show() {
 	console.log("starting...")
-
+	if (localStorage.nepalLoadsheddingScheduleChanged == "true") {
+		schedules = JSON.parse(localStorage.nepalLoadsheddingSchedule);
+	}
 	var group = localStorage.nepalLoadsheddingGroup;
 	var prevGroup = localStorage.prevGroup;
 
 	var notificationEnabled = localStorage.nepalLoadsheddingNotificationEnabled;
 	var notificationTime = localStorage.nepalLoadsheddingNotificationTime;
+	var notificationChanged = localStorage.nepalLoadsheddingNotificationChanged;
 
 	if (notificationEnabled == undefined) {
 		notificationEnabled = false;
 		notificationTime = 10;
+		notificationChanged = false;
 		localStorage.nepalLoadsheddingNotificationEnabled = false;
 		localStorage.nepalLoadsheddingNotificationTime = 10;
+		localStorage.nepalLoadsheddingNotificationChanged = false;
 	}
 
 	// TEST only
@@ -47,8 +53,12 @@ function show() {
 	var status = getScheduleStatus(hour, minute, day, sunScheduleIndex);
 	var intervalMinute = 1;
 	var msg;
-	console.log(notificationEnabled)
+	// console.log(notificationEnabled)
+	// console.log(notificationTime)
+	reverted = reverted || (notificationChanged == "true")
 	if (notificationEnabled == "true") {
+		// console.log(notificationEnabled)
+		// console.log(notificationTime)
 		if (status.status == 0) {
 			if (firstRun
 					|| (status.hoursRemaining == 0 && status.minutesRemaining <= notificationTime)) {
@@ -98,15 +108,18 @@ function show() {
 
 			setTimeout(function() {
 				notification.cancel();
-			}, 20 * 1000);
+			}, 7 * 1000);
 
 			notification.show();
+			localStorage.nepalLoadsheddingNotificationChanged = false;
 			localStorage.prevGroup = group;
 		} else {
 			// diff == 0
 			// or
 			localStorage.prevGroup = 0;
 		}
+	} else {
+		firstRun = false;	
 	}
 	// var interval = ( status.hoursRemaining * 60 * 60 +
 	// status.minutesRemaining * 60 - notificationTime * 60) * 1000;
@@ -129,7 +142,8 @@ function show() {
 
 	clearInterval(id);
 	// id = setInterval(show, interval);
-	id = setInterval(show, intervalMinute * 60 * 1000);
+	id = setInterval(show, intervalMinute * (60 - new Date().getSeconds())
+			* 1000);
 	// console.log("next alert after: " + (interval/(1000*60)) + " minutes")
 
 	// notification.show();
@@ -195,18 +209,25 @@ function getScheduleStatus(hour, minute, day, sundayScheduleIndex) {
 	} else {
 		if (status.status == 0) {
 			var nextDayTimeRemaining;
-			if (schedule.to.hour == 24) {
-				nextDayTimeRemaining = getNextDayFirstSchedule(0, day,
-						sundayScheduleIndex);
+			if (schedule.from.hour == hour && schedule.from.minute == minute) {
+				status.status = 1;
+				status.hoursRemaining = 0;
+				status.minutesRemaining = 0;
 			} else {
-				nextDayTimeRemaining = new Time(0, 0);
-			}
-			var timeDiff = getTimeDifference(schedule.to,
-					new Time(hour, minute));
+				if (schedule.to.hour == 24) {
+					nextDayTimeRemaining = getNextDayFirstSchedule(0, day,
+							sundayScheduleIndex);
+				} else {
+					nextDayTimeRemaining = new Time(0, 0);
+				}
+				var timeDiff = getTimeDifference(schedule.to, new Time(hour,
+						minute));
 
-			status.hoursRemaining = timeDiff.hour + nextDayTimeRemaining.hour;
-			status.minutesRemaining = timeDiff.minute
-					+ nextDayTimeRemaining.minute;
+				status.hoursRemaining = timeDiff.hour
+						+ nextDayTimeRemaining.hour;
+				status.minutesRemaining = timeDiff.minute
+						+ nextDayTimeRemaining.minute;
+			}
 		} else {
 			var timeDiff = getTimeDifference(schedule.from, new Time(hour,
 					minute));

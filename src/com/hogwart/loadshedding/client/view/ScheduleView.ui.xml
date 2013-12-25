@@ -11,7 +11,8 @@
 	</ui:style>
 	<g:HTMLPanel styleName="bodyContainer">
 		<g:HTMLPanel styleName="settingsPanel">
-			<g:Anchor ui:field="viewSwitchAnchor" styleName="settings">SETTINGS >></g:Anchor>
+
+			<g:Anchor ui:field="viewSwitchAnchor" styleName="settings">NOTIFICATION SETTINGS >></g:Anchor>
 		</g:HTMLPanel>
 		<g:HTMLPanel ui:field="settingsPanelContainer" visible="false">
 			<v:SettingsView ui:field="settingsView"></v:SettingsView>

@@ -12,6 +12,7 @@ public class LocalStorageUtil {
 	
 	public static native void storeCurrentSchedule(String schedule) /*-{
 		localStorage.nepalLoadsheddingSchedule = schedule;
+		localStorage.nepalLoadsheddingScheduleChanged = true;
 	}-*/;
 	
 	public static native String getCurrentSchedule () /*-{
@@ -40,6 +41,10 @@ public class LocalStorageUtil {
 
 	public static native String getNotificationTime () /*-{
 		return localStorage.nepalLoadsheddingNotificationTime;
+	}-*/;
+	
+	public static native String storeNotificationChanged (boolean changed) /*-{
+		localStorage.nepalLoadsheddingNotificationChanged = changed;
 	}-*/;
 
 }

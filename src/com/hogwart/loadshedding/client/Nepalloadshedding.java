@@ -65,6 +65,7 @@ public class Nepalloadshedding implements EntryPoint {
 			
 			LocalStorageUtil.storeNotificationEnabled(notificationEnabled);
 			LocalStorageUtil.storeNotificationTime(notificationTime);
+			LocalStorageUtil.storeNotificationChanged(false);
 		}
 		
 		try {

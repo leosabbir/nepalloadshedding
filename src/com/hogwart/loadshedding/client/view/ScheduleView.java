@@ -113,7 +113,7 @@ public class ScheduleView extends Composite {
 	
 	@UiHandler("viewSwitchAnchor")
 	void onViewSwitch(ClickEvent e) {
-		if (this.viewSwitchAnchor.getText().equals("SETTINGS >>")) {
+		if (this.viewSwitchAnchor.getText().equals("NOTIFICATION SETTINGS >>")) {
 			this.schedulePanelContainer.setVisible(false);
 			this.settingsPanelContainer.setVisible(true);
 			this.viewSwitchAnchor.setText("<< SCHEDULE");
@@ -121,7 +121,7 @@ public class ScheduleView extends Composite {
 		} else {
 			this.schedulePanelContainer.setVisible(true);
 			this.settingsPanelContainer.setVisible(false);
-			this.viewSwitchAnchor.setText("SETTINGS >>");
+			this.viewSwitchAnchor.setText("NOTIFICATION SETTINGS >>");
 		}
 	}
 	

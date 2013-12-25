@@ -148,8 +148,10 @@ body {
 }
 
 .settingsPanel {
-	text-align:center;
+	text-align:right;
 	padding: 1px 0;
+	margin-right:10px;
+	font-size: 9px;
 }
 
 .settingsContainer{

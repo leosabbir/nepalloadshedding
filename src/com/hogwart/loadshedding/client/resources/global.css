@@ -10,14 +10,13 @@ pre {
 }
 
 body {
-  background-color: #E6E6E6;
-  color: #C3CA00;
+  background: linear-gradient(120deg, black, rgb(133, 133, 133));
+  color: #0000CA;
 }
 
 .loadshedding-bulb {
 	font-size: 13px;
 	line-height: 12px;
-	color: #B0160A;
 	border: none;
 	border-radius: 3px;
 	margin-left: 26px;
@@ -28,20 +27,27 @@ body {
 
 .scheduleContainer {
 	width: 96%;
-	background-color: #4AA3B7;
+	background-color: #68A768;
 	border-radius: 5px 5px 5px 5px;
 	-moz-border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px 5px;
 	margin: 5px 0;
 	padding: 10px 10px;
 	line-height: 20px;
-	font-weight: bold;
 	font-size: 14px;
+	font-weight: bold;
+	color: #9E2121;
 /* 	height: 50px; */
 }
 
 .scheduleContainer-selected {
-	background-color: #2C7386;
+	background-color: #DBE4E6;
+	font-size: 14px;
+	color: #091324;
+}
+
+.scheduleContainer-selected .gwt-HTML {
+	/*height: 60px;*/
 }
 
 @sprite .loadshedding-bulb-on > div.icon {
@@ -56,6 +62,12 @@ body {
 
 .loadshedding-bulb-on > div.text {
 	margin-top: 5px;
+	color: #0B6B91;
+}
+
+.loadshedding-bulb-off > div.text {
+	margin-top: 5px;
+	color: #001389;
 }
 
 .serverconnection {
@@ -97,30 +109,33 @@ body {
 
 .gwt-Button {
 		display: inline-block;
-		background-color: #2858A7;
+		background: none;
+		/*background-color: #1D515E;*/
 		background-image: -moz-linear-gradient(#1D3767, #2858A7);
-		background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1D3767), to(#2858A7));
+		background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#377032), to(#020202));
 		background-repeat: repeat-x;
-		box-shadow: 0 1px 0 #FFFFFF;
+		/*box-shadow: 0 1px 0 #FFFFFF;*/
 		color: #FFFFFF;
-		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+		/*text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);*/
 		display: inline-block;
 		font-family: arial;
 		font-size: 12px;
-		font-weight: bold;
+		/*font-weight: bold;*/
 		padding: 5px 10px;
 		text-decoration: none;
 		cursor: pointer;
 		border-radius: 4px;
 		overflow: visible;
 		line-height: 18px;
-		border: 1px solid #057ED0;
+		border: 1px solid #1d515e;
 		margin-bottom: 5px;
 		margin-left: 5px;
 	}
 	
 .gwt-Button-selected {
-		background-color: #0C794A;
+		/*background-color: #B9C9AF;*/
+		background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2BC931), to(#275227));
+		border: 1px solid #0C794A;
 	}
 	
 .info {
@@ -140,11 +155,12 @@ body {
 
 .bodyContainer {
 	width: 520px;
-	height: 500px;
+	
 }
 
 .settings {
 	cursor: pointer;
+	color: #fff;
 }
 
 .settingsPanel {
@@ -156,10 +172,16 @@ body {
 
 .settingsContainer{
 	padding: 10px;
-	background-color: #1B4753;
+	background-color: #68A768;
 	border-radius: 5px 5px 5px 5px;
 	-moz-border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px 5px;
+	font-size: 12px;
+}
+
+.settingsContainer .gwt-CheckBox {
+	margin-left: 55px;
+	
 }
 
 .errorLabel{
@@ -178,7 +200,7 @@ body {
 
 .scheduleStatusContainer {
 	width: 510px;
-	background-color: #1B4753;
+	background-color: #81B7c4;
 	border-radius: 5px 5px 5px 5px;
 	-moz-border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px 5px;

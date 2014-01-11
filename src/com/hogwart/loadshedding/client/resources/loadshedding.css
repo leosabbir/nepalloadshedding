@@ -8,9 +8,8 @@
 	border-radius: 3px 3px 3px 3px;
 	-moz-border-radius: 3px 3px 3px 3px;
 	-webkit-border-radius: 3px 3px 3px 3px;
-	background-color: #1B4753;
+	background-color: #9A9BA0;
 	padding: 1px 5px;
-	color: #1E5B11;
 }
 
 .timeContainer {
@@ -19,14 +18,15 @@
 	width: 234px;
 	margin: 0px 0px 0px 0px;
 	float: left;
-	border-left: 1px #7D811C solid;
-	border-right: 1px #7D811C solid;
+	border-left: 1px #717471 solid;
+	border-right: 1px #717471 solid;
 	padding: 0 42px;
 	min-height: 40px;
 	text-align: center;
 }
 
 .dayField {
+	color: #141514;
 	width: 60px;
 	float: left;
 	margin-top: 12px;

@@ -57,7 +57,12 @@ public class Nepalloadshedding implements EntryPoint {
 		}
 		
 		Boolean notificationEnabled = Boolean.valueOf(LocalStorageUtil.getNotificationEnabled());
-		Integer notificationTime = Integer.parseInt(LocalStorageUtil.getNotificationTime());
+		Integer notificationTime;
+		if (LocalStorageUtil.getNotificationTime() == null) {
+			notificationTime = null;
+		} else {
+			notificationTime = Integer.parseInt(LocalStorageUtil.getNotificationTime());
+		}
 		
 		if (notificationEnabled == null || notificationTime == null) {
 			notificationEnabled = false;
